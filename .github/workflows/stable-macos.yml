@@ -24,7 +24,7 @@ on:
       - "**/*.md"
 
 env:
-  APP_NAME: Aide
+  APP_NAME: Void
   ASSETS_REPOSITORY: ${{ github.repository_owner }}/binaries
   OS_NAME: osx
   VERSIONS_REPOSITORY: ${{ github.repository_owner }}/versions
