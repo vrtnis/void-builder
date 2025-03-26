@@ -4,10 +4,10 @@
   <metadata_license>@@LICENSE@@</metadata_license>
   <project_license>@@LICENSE@@</project_license>
   <name>@@NAME_LONG@@</name>
-  <url type="homepage">https://aide.dev</url>
+  <url type="homepage">https://void.dev</url>
   <summary>The open-source AI-native IDE</summary>
   <description>
-    <p>Aide is designed to be your intelligent coding companion, helping you write better code faster while maintaining full control over your development process.</p>
+    <p>Void is designed to be your intelligent coding companion, helping you write better code faster while maintaining full control over your development process.</p>
   </description>
   <screenshots>
     <screenshot type="default">

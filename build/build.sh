@@ -5,8 +5,8 @@
 # to run with Bash: "C:\Program Files\Git\bin\bash.exe" ./build/build.sh
 ###
 
-export APP_NAME="Aide"
-export BINARY_NAME="aide"
+export APP_NAME="Void"
+export BINARY_NAME="void"
 export CI_BUILD="no"
 export SHOULD_BUILD="yes"
 export SKIP_ASSETS="yes"
@@ -19,7 +19,7 @@ export VSCODE_SKIP_NODE_VERSION_CHECK="yes"
 while getopts ":ilops" opt; do
   case "$opt" in
     i)
-      export BINARY_NAME="aide-insiders"
+      export BINARY_NAME="void-insiders"
       export VSCODE_QUALITY="insider"
       ;;
     l)
@@ -119,9 +119,9 @@ if [[ "${SKIP_BUILD}" == "no" ]]; then
     mkdir -p ~/.gyp
 
     if [[ -f "${HOME}/.gyp/include.gypi" ]]; then
-      mv ~/.gyp/include.gypi ~/.gyp/include.gypi.pre-aide
+      mv ~/.gyp/include.gypi ~/.gyp/include.gypi.pre-void
     else
-      echo "{}" > ~/.gyp/include.gypi.pre-aide
+      echo "{}" > ~/.gyp/include.gypi.pre-void
     fi
 
     cp ./include_osx.gypi ~/.gyp/include.gypi
@@ -130,7 +130,7 @@ if [[ "${SKIP_BUILD}" == "no" ]]; then
   . build.sh
 
   if [[ -f "./include_${OS_NAME}.gypi" ]]; then
-    mv ~/.gyp/include.gypi.pre-aide ~/.gyp/include.gypi
+    mv ~/.gyp/include.gypi.pre-void ~/.gyp/include.gypi
   fi
 
   if [[ "${VSCODE_LATEST}" == "yes" ]]; then

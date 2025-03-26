@@ -25,5 +25,5 @@ echo "remove the zip file"
 rm -rf ./sidecar.zip
 
 # Move the binary to the correct location
-echo "copying over the binary to vscode/.build/extensions/codestory/sidecar_bin"
-mv ./sidecar_bin vscode/.build/extensions/codestory/sidecar_bin
+echo "copying over the binary to vscode/.build/extensions/voideditor/sidecar_bin"
+mv ./sidecar_bin vscode/.build/extensions/voideditor/sidecar_bin
