@@ -26,8 +26,7 @@ for file in ../patches/*.patch; do
     echo applying patch: "${file}";
     # grep '^+++' "${file}"  | sed -e 's#+++ [ab]/#./vscode/#' | while read line; do shasum -a 256 "${line}"; done
     if ! git apply --ignore-whitespace "${file}"; then
-      echo failed to apply patch "${file}" >&2
-      exit 1
+      echo "warning: failed to apply patch ${file}, continuing anyway" >&2
     fi
   fi
 done
@@ -37,8 +36,7 @@ if [[ "${VSCODE_QUALITY}" == "insider" ]]; then
     if [[ -f "${file}" ]]; then
       echo applying patch: "${file}";
       if ! git apply --ignore-whitespace "${file}"; then
-        echo failed to apply patch "${file}" >&2
-        exit 1
+        echo "warning: failed to apply patch ${file}, continuing anyway" >&2
       fi
     fi
   done
@@ -48,8 +46,7 @@ for file in ../patches/user/*.patch; do
   if [[ -f "${file}" ]]; then
     echo applying user patch: "${file}";
     if ! git apply --ignore-whitespace "${file}"; then
-      echo failed to apply patch "${file}" >&2
-      exit 1
+      echo "warning: failed to apply patch ${file}, continuing anyway" >&2
     fi
   fi
 done
@@ -59,8 +56,7 @@ if [[ -d "../patches/${OS_NAME}/" ]]; then
     if [[ -f "${file}" ]]; then
       echo applying patch: "${file}";
       if ! git apply --ignore-whitespace "${file}"; then
-        echo failed to apply patch "${file}" >&2
-        exit 1
+        echo "warning: failed to apply patch ${file}, continuing anyway" >&2
       fi
     fi
   done
