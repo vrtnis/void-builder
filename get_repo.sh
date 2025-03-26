@@ -3,6 +3,17 @@
 
 set -e
 
+# Echo all environment variables used by this script
+echo "----------- get repo -----------"
+echo "Environment variables:"
+echo "CI_BUILD=${CI_BUILD}"
+echo "GITHUB_REPOSITORY=${GITHUB_REPOSITORY}"
+echo "RELEASE_VERSION=${RELEASE_VERSION}"
+echo "VSCODE_LATEST=${VSCODE_LATEST}"
+echo "VSCODE_QUALITY=${VSCODE_QUALITY}"
+echo "GITHUB_ENV=${GITHUB_ENV}"
+echo "-------------------------"
+
 # git workaround
 if [[ "${CI_BUILD}" != "no" ]]; then
   git config --global --add safe.directory "/__w/$( echo "${GITHUB_REPOSITORY}" | awk '{print tolower($0)}' )"
