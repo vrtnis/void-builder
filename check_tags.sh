@@ -19,10 +19,17 @@ if [[ "${SHOULD_DEPLOY}" == "no" ]]; then
   ASSETS="null"
 else
   GITHUB_RESPONSE=$( curl -s -H "Authorization: token ${GITHUB_TOKEN}" "https://api.${GH_HOST}/repos/${ASSETS_REPOSITORY}/releases/latest" )
-  LATEST_VERSION=$( echo "${GITHUB_RESPONSE}" | jq -c -r '.tag_name' )
-  RECHECK_ASSETS="${SHOULD_BUILD}"
 
-  if [[ "${LATEST_VERSION}" =~ ^([0-9]+\.[0-9]+\.[0-9]+) ]]; then
+  # Void - Check if response contains "Not Found" or "message" field indicating error
+  if [[ "${GITHUB_RESPONSE}" == *"Not Found"* ]] || [[ $(echo "${GITHUB_RESPONSE}" | grep -c "\"message\"") -gt 0 ]]; then
+    echo "No releases found or repository is empty. Proceeding with build."
+    ASSETS="null"
+    export SHOULD_BUILD="yes"
+  else
+    LATEST_VERSION=$( echo "${GITHUB_RESPONSE}" | jq -c -r '.tag_name' )
+    RECHECK_ASSETS="${SHOULD_BUILD}"
+
+    if [[ "${LATEST_VERSION}" =~ ^([0-9]+\.[0-9]+\.[0-9]+) ]]; then
     if [[ "${MS_TAG}" != "${BASH_REMATCH[1]}" ]]; then
       echo "New VSCode version, new build"
       export SHOULD_BUILD="yes"
@@ -56,7 +63,8 @@ else
     fi
   else
     echo "can't check assets"
-    exit 1
+    ASSETS="null"
+    export SHOULD_BUILD="yes"
   fi
 fi
 
