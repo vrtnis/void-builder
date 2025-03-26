@@ -20,12 +20,6 @@ if [[ "${SHOULD_BUILD}" == "yes" ]]; then
   yarn gulp compile-build
   yarn gulp compile-extension-media
   yarn gulp compile-extensions-build
-
-  # Package the sidecar
-  cd ..
-  . package_sidecar.sh
-  cd vscode
-
   yarn gulp minify-vscode
 
   if [[ "${OS_NAME}" == "osx" ]]; then
