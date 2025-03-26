@@ -20,12 +20,6 @@ if [[ "${SHOULD_BUILD}" == "yes" ]]; then
   # Skip valid-layers-check as well since it might depend on monaco
   echo "Skipping valid-layers-check..."
 
-  # Run the core compilation steps first
-  yarn gulp "vscode-darwin-${VSCODE-ARCH}-min"
-
-  # Add a minify step for just the core parts
-  yarn gulp minify-vscode-core
-
   if [[ "${OS_NAME}" == "osx" ]]; then
     yarn gulp "vscode-darwin-${VSCODE_ARCH}-min-ci"
 
