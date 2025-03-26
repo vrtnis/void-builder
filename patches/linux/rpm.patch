@@ -1,5 +1,5 @@
 diff --git a/resources/linux/rpm/code.spec.template b/resources/linux/rpm/code.spec.template
-index a73bc02..242bab0 100644
+index a73bc02c3e7..340b94e19a0 100644
 --- a/resources/linux/rpm/code.spec.template
 +++ b/resources/linux/rpm/code.spec.template
 @@ -2,3 +2,3 @@ Name:     @@NAME@@
