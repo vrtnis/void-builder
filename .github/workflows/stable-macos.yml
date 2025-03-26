@@ -15,16 +15,16 @@ on:
   repository_dispatch:
     types: [stable]
   push:
-    branches: [git-workflow]
+    branches: [main]
     paths-ignore:
       - "**/*.md"
   pull_request:
-    branches: [git-workflow]
+    branches: [main]
     paths-ignore:
       - "**/*.md"
 
 env:
-  APP_NAME: Void
+  APP_NAME: Aide
   ASSETS_REPOSITORY: ${{ github.repository_owner }}/binaries
   OS_NAME: osx
   VERSIONS_REPOSITORY: ${{ github.repository_owner }}/versions
@@ -66,6 +66,20 @@ jobs:
           python-version: "3.11"
         if: env.VSCODE_ARCH == 'x64'
 
+      # - name: Point gcloud SDK to Python
+      #   shell: bash
+      #   run: echo "CLOUDSDK_PYTHON=${{ steps.setup-python.outputs.python-path }}" >> $GITHUB_ENV
+
+      # - name: Authenticate with Google Cloud
+      #   uses: 'google-github-actions/auth@v2'
+      #   with:
+      #     credentials_json: '${{ secrets.GCP_GAE_SA_KEY }}'
+
+      # - name: Configure Google Cloud SDK
+      #   uses: 'google-github-actions/setup-gcloud@v2'
+      #   with:
+      #     project_id: '${{ secrets.GCP_PROJECT_ID }}'
+
       - name: Clone VSCode repo
         run: . get_repo.sh
 
@@ -74,12 +88,7 @@ jobs:
           GENERATE_ASSETS: ${{ github.event.inputs.generate_assets }}
         run: . check_cron_or_pr.sh
 
-      - name: Force first build
-        run: |
-          echo "SHOULD_BUILD=yes" >> $GITHUB_ENV
-          echo "SHOULD_DEPLOY=yes" >> $GITHUB_ENV
-
-      - name: Check existing Void tags/releases
+      - name: Check existing Aide tags/releases
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: . check_tags.sh
