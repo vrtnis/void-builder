@@ -9,17 +9,18 @@ if [[ "${CI_BUILD}" != "no" ]]; then
 fi
 
 if [[ -z "${RELEASE_VERSION}" ]]; then
-  if [[ "${VSCODE_LATEST}" == "yes" ]] || [[ ! -f "./upstream/${VSCODE_QUALITY}.json" ]]; then
+  if [[ "${VSCODE_LATEST}" == "yes" ]] || [[ ! -f "${VSCODE_QUALITY}.json" ]]; then
     echo "Retrieve lastest version"
     UPDATE_INFO=$( curl --silent --fail "https://update.code.visualstudio.com/api/update/darwin/${VSCODE_QUALITY}/0000000000000000000000000000000000000000" )
   else
     echo "Get version from ${VSCODE_QUALITY}.json"
-    MS_COMMIT=$( jq -r '.commit' "./upstream/${VSCODE_QUALITY}.json" )
-    MS_TAG=$( jq -r '.tag' "./upstream/${VSCODE_QUALITY}.json" )
+    MS_COMMIT=$( jq -r '.commit' "${VSCODE_QUALITY}.json" )
+    MS_TAG=$( jq -r '.tag' "${VSCODE_QUALITY}.json" )
   fi
 
   if [[ -z "${MS_COMMIT}" ]]; then
-    MS_COMMIT=$( echo "${UPDATE_INFO}" | jq -r '.version' )
+    echo "Use the latest commit from the github-workflow branch" # Void
+    MS_COMMIT="github-workflow"
     MS_TAG=$( echo "${UPDATE_INFO}" | jq -r '.name' )
 
     if [[ "${VSCODE_QUALITY}" == "insider" ]]; then
@@ -53,8 +54,8 @@ else
     fi
   fi
 
-  if [[ "${MS_TAG}" == "$( jq -r '.tag' "./upstream/${VSCODE_QUALITY}.json" )" ]]; then
-    MS_COMMIT=$( jq -r '.commit' "./upstream/${VSCODE_QUALITY}.json" )
+  if [[ "${MS_TAG}" == "$( jq -r '.tag' "${VSCODE_QUALITY}".json )" ]]; then
+    MS_COMMIT=$( jq -r '.commit' "${VSCODE_QUALITY}".json )
   else
     echo "Error: No MS_COMMIT for ${RELEASE_VERSION}"
     exit 1
@@ -67,7 +68,7 @@ mkdir -p vscode
 cd vscode || { echo "'vscode' dir not found"; exit 1; }
 
 git init -q
-git remote add origin https://github.com/Microsoft/vscode.git
+git remote add origin https://github.com/voideditor/void.git
 
 # figure out latest tag by calling MS update API
 if [[ -z "${MS_TAG}" ]]; then
