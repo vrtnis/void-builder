@@ -127,30 +127,30 @@ if [[ "${DISABLE_UPDATE}" != "yes" ]]; then
   setpath "product" "downloadUrl" "https://github.com/voideditor/void/releases"
 fi
 
-if [[ "${VSCODE_QUALITY}" == "insider" ]]; then
-  setpath "product" "nameShort" "VSCodium - Insiders"
-  setpath "product" "nameLong" "VSCodium - Insiders"
-  setpath "product" "applicationName" "codium-insiders"
-  setpath "product" "dataFolderName" ".vscodium-insiders"
-  setpath "product" "linuxIconName" "vscodium-insiders"
-  setpath "product" "quality" "insider"
-  setpath "product" "urlProtocol" "vscodium-insiders"
-  setpath "product" "serverApplicationName" "codium-server-insiders"
-  setpath "product" "serverDataFolderName" ".vscodium-server-insiders"
-  setpath "product" "darwinBundleIdentifier" "com.vscodium.VSCodiumInsiders"
-  setpath "product" "win32AppUserModelId" "VSCodium.VSCodiumInsiders"
-  setpath "product" "win32DirName" "VSCodium Insiders"
-  setpath "product" "win32MutexName" "vscodiuminsiders"
-  setpath "product" "win32NameVersion" "VSCodium Insiders"
-  setpath "product" "win32RegValueName" "VSCodiumInsiders"
-  setpath "product" "win32ShellNameShort" "VSCodium Insiders"
-  setpath "product" "win32AppId" "{{EF35BB36-FA7E-4BB9-B7DA-D1E09F2DA9C9}"
-  setpath "product" "win32x64AppId" "{{B2E0DDB2-120E-4D34-9F7E-8C688FF839A2}"
-  setpath "product" "win32arm64AppId" "{{44721278-64C6-4513-BC45-D48E07830599}"
-  setpath "product" "win32UserAppId" "{{ED2E5618-3E7E-4888-BF3C-A6CCC84F586F}"
-  setpath "product" "win32x64UserAppId" "{{20F79D0D-A9AC-4220-9A81-CE675FFB6B41}"
-  setpath "product" "win32arm64UserAppId" "{{2E362F92-14EA-455A-9ABD-3E656BBBFE71}"
-else # // Void renamed this part
+# if [[ "${VSCODE_QUALITY}" == "insider" ]]; then
+#   setpath "product" "nameShort" "VSCodium - Insiders"
+#   setpath "product" "nameLong" "VSCodium - Insiders"
+#   setpath "product" "applicationName" "codium-insiders"
+#   setpath "product" "dataFolderName" ".vscodium-insiders"
+#   setpath "product" "linuxIconName" "vscodium-insiders"
+#   setpath "product" "quality" "insider"
+#   setpath "product" "urlProtocol" "vscodium-insiders"
+#   setpath "product" "serverApplicationName" "codium-server-insiders"
+#   setpath "product" "serverDataFolderName" ".vscodium-server-insiders"
+#   setpath "product" "darwinBundleIdentifier" "com.vscodium.VSCodiumInsiders"
+#   setpath "product" "win32AppUserModelId" "VSCodium.VSCodiumInsiders"
+#   setpath "product" "win32DirName" "VSCodium Insiders"
+#   setpath "product" "win32MutexName" "vscodiuminsiders"
+#   setpath "product" "win32NameVersion" "VSCodium Insiders"
+#   setpath "product" "win32RegValueName" "VSCodiumInsiders"
+#   setpath "product" "win32ShellNameShort" "VSCodium Insiders"
+#   setpath "product" "win32AppId" "{{EF35BB36-FA7E-4BB9-B7DA-D1E09F2DA9C9}"
+#   setpath "product" "win32x64AppId" "{{B2E0DDB2-120E-4D34-9F7E-8C688FF839A2}"
+#   setpath "product" "win32arm64AppId" "{{44721278-64C6-4513-BC45-D48E07830599}"
+#   setpath "product" "win32UserAppId" "{{ED2E5618-3E7E-4888-BF3C-A6CCC84F586F}"
+#   setpath "product" "win32x64UserAppId" "{{20F79D0D-A9AC-4220-9A81-CE675FFB6B41}"
+#   setpath "product" "win32arm64UserAppId" "{{2E362F92-14EA-455A-9ABD-3E656BBBFE71}"
+# else # // Void renamed this part
   setpath "product" "nameShort" "Void"
   setpath "product" "nameLong" "Void"
   setpath "product" "applicationName" "void"
@@ -172,7 +172,7 @@ else # // Void renamed this part
   setpath "product" "win32UserAppId" "{{0FD05EB4-651E-4E78-A062-515204B47A3A}"
   setpath "product" "win32x64UserAppId" "{{2E1F05D1-C245-4562-81EE-28188DB6FD17}"
   setpath "product" "win32arm64UserAppId" "{{57FD70A5-1B8D-4875-9F40-C5553F094828}"
-fi
+# fi
 
 jsonTmp=$( jq -s '.[0] * .[1]' product.json ../product.json )
 echo "${jsonTmp}" > product.json && unset jsonTmp
@@ -185,17 +185,17 @@ cp package.json{,.bak}
 setpath "package" "version" "$( echo "${RELEASE_VERSION}" | sed -n -E "s/^(.*)\.([0-9]+)(-insider)?$/\1/p" )"
 setpath "package" "release" "$( echo "${RELEASE_VERSION}" | sed -n -E "s/^(.*)\.([0-9]+)(-insider)?$/\2/p" )"
 
-replace 's|Microsoft Corporation|VSCodium|' package.json
+replace 's|Microsoft Corporation|Glass Devtools Inc|' package.json
 
 # announcements
 replace "s|\\[\\/\\* BUILTIN_ANNOUNCEMENTS \\*\\/\\]|$( tr -d '\n' < ../announcements-builtin.json )|" src/vs/workbench/contrib/welcomeGettingStarted/browser/gettingStarted.ts
 
 ../undo_telemetry.sh
 
-replace 's|Microsoft Corporation|VSCodium|' build/lib/electron.js
-replace 's|Microsoft Corporation|VSCodium|' build/lib/electron.ts
-replace 's|([0-9]) Microsoft|\1 VSCodium|' build/lib/electron.js
-replace 's|([0-9]) Microsoft|\1 VSCodium|' build/lib/electron.ts
+replace 's|Microsoft Corporation|Glass Devtools Inc|' build/lib/electron.js
+replace 's|Microsoft Corporation|Glass Devtools Inc|' build/lib/electron.ts
+replace 's|([0-9]) Microsoft|\1 Glass Devtools Inc|' build/lib/electron.js
+replace 's|([0-9]) Microsoft|\1 Glass Devtools Inc|' build/lib/electron.ts
 
 if [[ "${OS_NAME}" == "linux" ]]; then
   # microsoft adds their apt repo to sources
@@ -210,30 +210,30 @@ if [[ "${OS_NAME}" == "linux" ]]; then
 
   # fix the packages metadata
   # code.appdata.xml
-  sed -i 's|Visual Studio Code|VSCodium|g' resources/linux/code.appdata.xml
+  sed -i 's|Visual Studio Code|Glass Devtools Inc|g' resources/linux/code.appdata.xml
   sed -i 's|https://code.visualstudio.com/docs/setup/linux|https://github.com/voideditor/void#download-install|' resources/linux/code.appdata.xml
   sed -i 's|https://code.visualstudio.com/home/home-screenshot-linux-lg.png|https://vscodium.com/img/vscodium.png|' resources/linux/code.appdata.xml
   sed -i 's|https://code.visualstudio.com|https://vscodium.com|' resources/linux/code.appdata.xml
 
   # control.template
-  sed -i 's|Microsoft Corporation <vscode-linux@microsoft.com>|VSCodium Team https://github.com/voideditor/void/graphs/contributors|'  resources/linux/debian/control.template
-  sed -i 's|Visual Studio Code|VSCodium|g' resources/linux/debian/control.template
+  sed -i 's|Microsoft Corporation <vscode-linux@microsoft.com>|Void Team https://github.com/voideditor/void/graphs/contributors|'  resources/linux/debian/control.template
+  sed -i 's|Visual Studio Code|Void|g' resources/linux/debian/control.template
   sed -i 's|https://code.visualstudio.com/docs/setup/linux|https://github.com/voideditor/void#download-install|' resources/linux/debian/control.template
-  sed -i 's|https://code.visualstudio.com|https://vscodium.com|' resources/linux/debian/control.template
+  sed -i 's|https://code.visualstudio.com|https://voideditor.com|' resources/linux/debian/control.template
 
   # code.spec.template
-  sed -i 's|Microsoft Corporation|VSCodium Team|' resources/linux/rpm/code.spec.template
-  sed -i 's|Visual Studio Code Team <vscode-linux@microsoft.com>|VSCodium Team https://github.com/voideditor/void/graphs/contributors|' resources/linux/rpm/code.spec.template
-  sed -i 's|Visual Studio Code|VSCodium|' resources/linux/rpm/code.spec.template
+  sed -i 's|Microsoft Corporation|Void Team|' resources/linux/rpm/code.spec.template
+  sed -i 's|Visual Studio Code Team <vscode-linux@microsoft.com>|Void Team https://github.com/voideditor/void/graphs/contributors|' resources/linux/rpm/code.spec.template
+  sed -i 's|Visual Studio Code|VSCoVoiddium|' resources/linux/rpm/code.spec.template
   sed -i 's|https://code.visualstudio.com/docs/setup/linux|https://github.com/voideditor/void#download-install|' resources/linux/rpm/code.spec.template
-  sed -i 's|https://code.visualstudio.com|https://vscodium.com|' resources/linux/rpm/code.spec.template
+  sed -i 's|https://code.visualstudio.com|https://voideditor.com|' resources/linux/rpm/code.spec.template
 
   # snapcraft.yaml
-  sed -i 's|Visual Studio Code|VSCodium|'  resources/linux/rpm/code.spec.template
+  sed -i 's|Visual Studio Code|Void|'  resources/linux/rpm/code.spec.template
 elif [[ "${OS_NAME}" == "windows" ]]; then
   # code.iss
-  sed -i 's|https://code.visualstudio.com|https://vscodium.com|' build/win32/code.iss
-  sed -i 's|Microsoft Corporation|VSCodium|' build/win32/code.iss
+  sed -i 's|https://code.visualstudio.com|https://voideditor.com|' build/win32/code.iss
+  sed -i 's|Microsoft Corporation|Void|' build/win32/code.iss
 fi
 
 cd ..
