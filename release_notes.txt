@@ -1,0 +1,258 @@
+update vscode to [MS_TAG](https://code.visualstudio.com/updates/vMS_TAG_SHORT)
+
+RELEASE_NOTES
+
+## x86 64bits
+
+<table>
+  <tr>
+    <td rowspan="7">Windows</td>
+    <td>User Installer</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/AideUserSetup-x64-RELEASE_VERSION.exe">AideUserSetup-x64-RELEASE_VERSION.exe</a></td>
+  </tr>
+  <tr>
+    <td>System Installer</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/AideSetup-x64-RELEASE_VERSION.exe">AideSetup-x64-RELEASE_VERSION.exe</a></td>
+  </tr>
+  <tr>
+    <td>.zip</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/Aide-win32-x64-RELEASE_VERSION.zip">Aide-win32-x64-RELEASE_VERSION.zip</a></td>
+  </tr>
+  <tr>
+    <td>.msi - updates enabled</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/Aide-x64-RELEASE_VERSION.msi">Aide-x64-RELEASE_VERSION.msi</a></td>
+  </tr>
+  <tr>
+    <td>.msi - updates disabled</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/Aide-x64-updates-disabled-RELEASE_VERSION.msi">Aide-x64-updates-disabled-RELEASE_VERSION.msi</a></td>
+  </tr>
+  <tr>
+    <td>Remote Host</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/aide-reh-win32-x64-RELEASE_VERSION.tar.gz">aide-reh-win32-x64-RELEASE_VERSION.tar.gz</a></td>
+  </tr>
+  <tr>
+    <td>Web Host</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/aide-reh-web-win32-x64-RELEASE_VERSION.tar.gz">aide-reh-web-win32-x64-RELEASE_VERSION.tar.gz</a></td>
+  </tr>
+  <tr>
+    <td rowspan="4">macOS</td>
+    <td>.dmg</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/Aide.x64.RELEASE_VERSION.dmg">Aide.x64.RELEASE_VERSION.dmg</a></td>
+  </tr>
+  <tr>
+    <td>.zip</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/Aide-darwin-x64-RELEASE_VERSION.zip">Aide-darwin-x64-RELEASE_VERSION.zip</a></td>
+  </tr>
+  <tr>
+    <td>Remote Host</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/aide-reh-darwin-x64-RELEASE_VERSION.tar.gz">aide-reh-darwin-x64-RELEASE_VERSION.tar.gz</a></td>
+  </tr>
+  <tr>
+    <td>Web Host</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/aide-reh-web-darwin-x64-RELEASE_VERSION.tar.gz">aide-reh-web-darwin-x64-RELEASE_VERSION.tar.gz</a></td>
+  </tr>
+  <tr>
+  <td rowspan="7">Linux</td>
+    <td>.deb</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/aide_RELEASE_VERSION_amd64.deb">aide_RELEASE_VERSION_amd64.deb</a></td>
+  </tr>
+  <tr>
+    <td>.rpm</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/aide-RELEASE_VERSION-el9.x86_64.rpm">aide-RELEASE_VERSION-el9.x86_64.rpm</a></td>
+  </tr>
+  <tr>
+    <td>.tar.gz</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/Aide-linux-x64-RELEASE_VERSION.tar.gz">Aide-linux-x64-RELEASE_VERSION.tar.gz</a></td>
+  </tr>
+  <tr>
+    <td>AppImage</td>
+    <td>
+      <a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/Aide-RELEASE_VERSION.glibc2.25-x86_64.AppImage">Aide-RELEASE_VERSION.glibc2.25-x86_64.AppImage</a><br />
+      <a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/Aide-RELEASE_VERSION.glibc2.25-x86_64.AppImage.zsync">Aide-RELEASE_VERSION.glibc2.25-x86_64.AppImage.zsync</a>
+    </td>
+  </tr>
+  <tr>
+    <td>Snap</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/aide_RELEASE_VERSION_amd64.snap">aide_RELEASE_VERSION_amd64.snap</a></td>
+  </tr>
+  <tr>
+    <td>Remote Host</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/aide-reh-linux-x64-RELEASE_VERSION.tar.gz">aide-reh-linux-x64-RELEASE_VERSION.tar.gz</a></td>
+  </tr>
+  <tr>
+    <td>Web Host</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/aide-reh-web-linux-x64-RELEASE_VERSION.tar.gz">aide-reh-web-linux-x64-RELEASE_VERSION.tar.gz</a></td>
+  </tr>
+  <tr>
+    <td rowspan="2">Alpine</td>
+    <td>Remote Host</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/aide-reh-alpine-x64-RELEASE_VERSION.tar.gz">aide-reh-alpine-x64-RELEASE_VERSION.tar.gz</a></td>
+  </tr>
+  <tr>
+    <td>Web Host</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/aide-reh-web-alpine-x64-RELEASE_VERSION.tar.gz">aide-reh-web-alpine-x64-RELEASE_VERSION.tar.gz</a></td>
+  </tr>
+</table>
+
+## ARM 64bits
+
+<table>
+  <tr>
+    <td rowspan="3">Windows</td>
+    <td>User Installer</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/AideUserSetup-arm64-RELEASE_VERSION.exe">AideUserSetup-arm64-RELEASE_VERSION.exe</a></td>
+  </tr>
+  <tr>
+    <td>System Installer</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/AideSetup-arm64-RELEASE_VERSION.exe">AideSetup-arm64-RELEASE_VERSION.exe</a></td>
+  </tr>
+  <tr>
+    <td>.zip</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/Aide-win32-arm64-RELEASE_VERSION.zip">Aide-win32-arm64-RELEASE_VERSION.zip</a></td>
+  </tr>
+  <tr>
+    <td rowspan="4">macOS</td>
+    <td>.dmg</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/Aide.arm64.RELEASE_VERSION.dmg">Aide.arm64.RELEASE_VERSION.dmg</a></td>
+  </tr>
+  <tr>
+    <td>.zip</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/Aide-darwin-arm64-RELEASE_VERSION.zip">Aide-darwin-arm64-RELEASE_VERSION.zip</a></td>
+  </tr>
+  <tr>
+    <td>Remote Host</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/aide-reh-darwin-arm64-RELEASE_VERSION.tar.gz">aide-reh-darwin-arm64-RELEASE_VERSION.tar.gz</a></td>
+  </tr>
+  <tr>
+    <td>Web Host</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/aide-reh-web-darwin-arm64-RELEASE_VERSION.tar.gz">aide-reh-web-darwin-arm64-RELEASE_VERSION.tar.gz</a></td>
+  </tr>
+  <tr>
+    <td rowspan="6">Linux</td>
+    <td>.deb</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/aide_RELEASE_VERSION_arm64.deb">aide_RELEASE_VERSION_arm64.deb</a></td>
+  </tr>
+  <tr>
+    <td>.rpm</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/aide-RELEASE_VERSION-el9.aarch64.rpm">aide-RELEASE_VERSION-el9.aarch64.rpm</a></td>
+  </tr>
+  <tr>
+    <td>.tar.gz</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/Aide-linux-arm64-RELEASE_VERSION.tar.gz">Aide-linux-arm64-RELEASE_VERSION.tar.gz</a></td>
+  </tr>
+  <tr>
+    <td>Snap</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/aide_RELEASE_VERSION_arm64.snap">aide_RELEASE_VERSION_arm64.snap</a></td>
+  </tr>
+  <tr>
+    <td>Remote Host</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/aide-reh-linux-arm64-RELEASE_VERSION.tar.gz">aide-reh-linux-arm64-RELEASE_VERSION.tar.gz</a></td>
+  </tr>
+  <tr>
+    <td>Web Host</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/aide-reh-web-linux-arm64-RELEASE_VERSION.tar.gz">aide-reh-web-linux-arm64-RELEASE_VERSION.tar.gz</a></td>
+  </tr>
+  <tr>
+    <td rowspan="2">Alpine</td>
+    <td>Remote Host</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/aide-reh-alpine-arm64-RELEASE_VERSION.tar.gz">aide-reh-alpine-arm64-RELEASE_VERSION.tar.gz</a></td>
+  </tr>
+  <tr>
+    <td>Web Host</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/aide-reh-web-alpine-arm64-RELEASE_VERSION.tar.gz">aide-reh-web-alpine-arm64-RELEASE_VERSION.tar.gz</a></td>
+  </tr>
+</table>
+
+## ARM 32bits
+
+<table>
+  <tr>
+    <td rowspan="5">Linux</td>
+    <td>.deb</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/aide_RELEASE_VERSION_armhf.deb">aide_RELEASE_VERSION_armhf.deb</a></td>
+  </tr>
+  <tr>
+    <td>.rpm</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/aide-RELEASE_VERSION-el9.armv7hl.rpm">aide-RELEASE_VERSION-el9.armv7hl.rpm</a></td>
+  </tr>
+  <tr>
+    <td>.tar.gz</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/Aide-linux-armhf-RELEASE_VERSION.tar.gz">Aide-linux-armhf-RELEASE_VERSION.tar.gz</a></td>
+  </tr>
+  <tr>
+    <td>Remote Host</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/aide-reh-linux-armhf-RELEASE_VERSION.tar.gz">aide-reh-linux-armhf-RELEASE_VERSION.tar.gz</a></td>
+  </tr>
+  <tr>
+    <td>Web Host</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/aide-reh-web-linux-armhf-RELEASE_VERSION.tar.gz">aide-reh-web-linux-armhf-RELEASE_VERSION.tar.gz</a></td>
+  </tr>
+</table>
+
+## PPC 64bits
+
+<table>
+  <tr>
+    <td rowspan="3">Linux</td>
+    <td>.tar.gz</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/Aide-linux-ppc64le-RELEASE_VERSION.tar.gz">Aide-linux-ppc64le-RELEASE_VERSION.tar.gz</a></td>
+  </tr>
+  <tr>
+    <td>Remote Host</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/aide-reh-linux-ppc64le-RELEASE_VERSION.tar.gz">aide-reh-linux-ppc64le-RELEASE_VERSION.tar.gz</a></td>
+  </tr>
+  <tr>
+    <td>Web Host</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/aide-reh-web-linux-ppc64le-RELEASE_VERSION.tar.gz">aide-reh-web-linux-ppc64le-RELEASE_VERSION.tar.gz</a></td>
+  </tr>
+</table>
+
+## RISC-V 64bits
+
+<table>
+  <tr>
+    <td rowspan="3">Linux</td>
+    <td>.tar.gz</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/Aide-linux-riscv64-RELEASE_VERSION.tar.gz">Aide-linux-riscv64-RELEASE_VERSION.tar.gz</a></td>
+  </tr>
+  <tr>
+    <td>Remote Host</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/aide-reh-linux-riscv64-RELEASE_VERSION.tar.gz">aide-reh-linux-riscv64-RELEASE_VERSION.tar.gz</a></td>
+  </tr>
+  <tr>
+    <td>Web Host</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/aide-reh-web-linux-riscv64-RELEASE_VERSION.tar.gz">aide-reh-web-linux-riscv64-RELEASE_VERSION.tar.gz</a></td>
+  </tr>
+</table>
+
+## Loong 64bits
+
+<table>
+  <tr>
+    <td rowspan="3">Linux</td>
+    <td>.tar.gz</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/Aide-linux-loong64-RELEASE_VERSION.tar.gz">Aide-linux-loong64-RELEASE_VERSION.tar.gz</a></td>
+  </tr>
+  <tr>
+    <td>Remote Host</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/aide-reh-linux-loong64-RELEASE_VERSION.tar.gz">aide-reh-linux-loong64-RELEASE_VERSION.tar.gz</a></td>
+  </tr>
+  <tr>
+    <td>Web Host</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/aide-reh-web-linux-loong64-RELEASE_VERSION.tar.gz">aide-reh-web-linux-loong64-RELEASE_VERSION.tar.gz</a></td>
+  </tr>
+</table>
+
+## s390x
+
+<table>
+  <tr>
+    <td rowspan="2">Linux</td>
+    <td>Remote Host</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/aide-reh-linux-s390x-RELEASE_VERSION.tar.gz">aide-reh-linux-s390x-RELEASE_VERSION.tar.gz</a></td>
+  </tr>
+  <tr>
+    <td>Web Host</td>
+    <td><a href="https://github.com/codestoryai/binaries/releases/download/RELEASE_VERSION/aide-reh-web-linux-s390x-RELEASE_VERSION.tar.gz">aide-reh-web-linux-s390x-RELEASE_VERSION.tar.gz</a></td>
+  </tr>
+</table>
