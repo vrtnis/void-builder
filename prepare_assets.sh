@@ -3,7 +3,7 @@
 
 set -e
 
-APP_NAME_LC="$( echo "${APP_NAME}" | awk '{print tolower($0)}' )"
+APP_NAME_LC=vscode #"$( echo "${APP_NAME}" | awk '{print tolower($0)}' )"
 
 mkdir -p assets
 
