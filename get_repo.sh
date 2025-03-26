@@ -19,8 +19,8 @@ if [[ -z "${RELEASE_VERSION}" ]]; then
   fi
 
   if [[ -z "${MS_COMMIT}" ]]; then
-    echo "Use the latest commit from the cs-main branch"
-    MS_COMMIT="cs-main"
+    echo "Use the latest commit from the main branch"
+    MS_COMMIT="main"
     MS_TAG=$( echo "${UPDATE_INFO}" | jq -r '.name' )
 
     if [[ "${VSCODE_QUALITY}" == "insider" ]]; then
