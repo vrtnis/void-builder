@@ -13,7 +13,7 @@ fi
 # Support for GitHub Enterprise
 GH_HOST="${GH_HOST:-github.com}"
 
-APP_NAME_LC=vscode #"$( echo "${APP_NAME}" | awk '{print tolower($0)}' )"
+APP_NAME_LC="$( echo "${APP_NAME}" | awk '{print tolower($0)}' )"
 
 if [[ "${SHOULD_DEPLOY}" == "no" ]]; then
   ASSETS="null"
