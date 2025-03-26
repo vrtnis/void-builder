@@ -10,7 +10,11 @@ if [[ "${SHOULD_BUILD}" == "yes" ]]; then
 
   . prepare_vscode.sh
 
+  echo "$(ls -a)"
+
   cd vscode || { echo "'vscode' dir not found"; exit 1; }
+
+  echo "$(ls -a)"
 
   export NODE_OPTIONS="--max-old-space-size=8192"
 
