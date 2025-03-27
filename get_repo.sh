@@ -4,7 +4,7 @@
 set -e
 
 # Echo all environment variables used by this script
-echo "----------- get repo -----------"
+echo "----------- get_repo -----------"
 echo "Environment variables:"
 echo "CI_BUILD=${CI_BUILD}"
 echo "GITHUB_REPOSITORY=${GITHUB_REPOSITORY}"
@@ -115,6 +115,12 @@ if [[ "${GITHUB_ENV}" ]]; then
   echo "MS_COMMIT=${MS_COMMIT}" >> "${GITHUB_ENV}"
   echo "RELEASE_VERSION=${RELEASE_VERSION}" >> "${GITHUB_ENV}"
 fi
+
+echo "----------- get_repo exports -----------"
+echo "MS_TAG ${MS_TAG}"
+echo "MS_COMMIT ${MS_COMMIT}"
+echo "RELEASE_VERSION ${RELEASE_VERSION}"
+echo "----------------------"
 
 export MS_TAG
 export MS_COMMIT
