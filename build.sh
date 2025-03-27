@@ -10,11 +10,7 @@ if [[ "${SHOULD_BUILD}" == "yes" ]]; then
 
   . prepare_vscode.sh
 
-  echo "$(ls -a)"
-
   cd vscode || { echo "'vscode' dir not found"; exit 1; }
-
-  echo "$(ls -a)"
 
   export NODE_OPTIONS="--max-old-space-size=8192"
 
@@ -23,6 +19,11 @@ if [[ "${SHOULD_BUILD}" == "yes" ]]; then
 
   # Skip valid-layers-check as well since it might depend on monaco
   echo "Skipping valid-layers-check..."
+
+  yarn gulp compile-build
+  yarn gulp compile-extension-media
+  yarn gulp compile-extensions-build
+
 
   if [[ "${OS_NAME}" == "osx" ]]; then
     yarn gulp "vscode-darwin-${VSCODE_ARCH}-min-ci"

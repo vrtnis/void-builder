@@ -12,6 +12,9 @@ echo "RELEASE_VERSION=${RELEASE_VERSION}"
 echo "VSCODE_LATEST=${VSCODE_LATEST}"
 echo "VSCODE_QUALITY=${VSCODE_QUALITY}"
 echo "GITHUB_ENV=${GITHUB_ENV}"
+
+echo "SHOULD_DEPLOY=${SHOULD_DEPLOY}"
+echo "SHOULD_BUILD=${SHOULD_BUILD}"
 echo "-------------------------"
 
 # git workaround
