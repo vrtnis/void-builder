@@ -25,6 +25,28 @@ if [[ "${SHOULD_BUILD}" == "yes" ]]; then
   yarn gulp compile-extension-media
   yarn gulp compile-extensions-build
 
+  echo "Done compiling...!"
+
+  if [-f "/Users/runner/work/void-builder/void-builder/vscode/out-vscode-min/vs/base/parts/sandbox/electron-sandbox/preload.js"]; then
+  echo "Yes1"
+  else
+  echo "No1"
+  fi
+  if [-f "/Users/runner/work/void-builder/vscode/out-vscode-min/vs/base/parts/sandbox/electron-sandbox/preload.js"]; then
+  echo "Yes2"
+  else
+  echo "No2"
+  fi
+  if [-f "/Users/runner/work/void-builder/void-builder/vscode/out-void-min/vs/base/parts/sandbox/electron-sandbox/preload.js"]; then
+  echo "Yes3"
+  else
+  echo "No3"
+  fi
+  if [-f "/Users/runner/work/void-builder/void-builder/void/out-void-min/vs/base/parts/sandbox/electron-sandbox/preload.js"]; then
+  echo "Yes4"
+  else
+  echo "No4"
+  fi
 
   if [[ "${OS_NAME}" == "osx" ]]; then
     yarn gulp "vscode-darwin-${VSCODE_ARCH}-min-ci"
