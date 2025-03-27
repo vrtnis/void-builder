@@ -20,6 +20,7 @@ if [[ "${SHOULD_BUILD}" == "yes" ]]; then
   # Skip valid-layers-check as well since it might depend on monaco
   echo "Skipping valid-layers-check..."
 
+  yarn run buildreact
   yarn gulp compile-build
   yarn gulp compile-extension-media
   yarn gulp compile-extensions-build
