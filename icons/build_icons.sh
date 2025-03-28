@@ -266,6 +266,8 @@ build_windows_types() { # {{{
   log_debug "Exiting build_windows_types"
 } # }}}
 
+# Void - this script is used to build the files in icons/.
+# You need to call it to generate the icons. We don't use any of them, though - they're all in the void repo already.
 if [[ "${0}" == "${BASH_SOURCE[0]}" ]]; then
   log_debug "Starting main execution"
   build_darwin_main
