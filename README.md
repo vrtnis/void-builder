@@ -6,7 +6,7 @@ Big thanks to the CodeStory team for inspiring this.
 
 ## What it does
 
-This repo hosts GitHub Actions. These actions build all the Void assets (.dmg, .zip, etc), and then store them on a release in the [`voideditor/binaries`](https://github.com/voideditor/binaries/releases) repo, and then set the latest version in the [`voideditor/versions`](https://github.com/voideditor/versions) repo so the versions can be tracked for updating.
+This repo hosts GitHub Actions. These actions build all the Void assets (.dmg, .zip, etc), and then they store them on a release in the [`voideditor/binaries`](https://github.com/voideditor/binaries/releases) repo, and then they set the latest version in the [`voideditor/versions`](https://github.com/voideditor/versions) repo so the versions can be tracked for updating.
 
 ## Auto-updates in Void
 
