@@ -34,11 +34,11 @@ git remote add origin https://github.com/voideditor/void.git
 git fetch --depth 1 origin "${VOID_BRANCH}"
 git checkout FETCH_HEAD
 
-MS_COMMIT=$VOID_BRANCH
+MS_COMMIT=$VOID_BRANCH # VSCodium named this incorrectly, it should be called branch not commit
 MS_TAG=$( jq -r '.voidVersion' "product.json" )
 
-date=$( date +%Y%m%d%H%M%S )
-RELEASE_VERSION="${MS_TAG}.${date}"
+date=$( date +%Y%j )
+RELEASE_VERSION="${MS_TAG}.${date: -5}"
 
 echo "RELEASE_VERSION=\"${RELEASE_VERSION}\""
 echo "MS_COMMIT=\"${MS_COMMIT}\""
