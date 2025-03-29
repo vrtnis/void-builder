@@ -13,9 +13,11 @@ This repo has GitHub Actions that build Void assets (.dmg, .zip, etc) into the [
 VSCodium comes with `.patch` files, including relevant ones to auto-updating, that we manually applied to the `void` repo. See the `.patch` files for more info. 
 Also see `abstractUpdateService.ts` in the `void` repo, and look for "updateUrl" and "downloadUrl" in `void-builder`.
 
+The only version that matters for updating is the version in `versions/`. The order of releases in `releases/`, for example, doesn't matter. 
 
 ## Docs
 
 See `stable-macos.sh` for one of the main Actions with some comments added by the Void team.
 
 Actions like `stable-macos.sh` run when we manually run them (this might change in the future and be listener-based).
+
