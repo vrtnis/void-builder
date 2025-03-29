@@ -22,6 +22,8 @@ if [[ "${CI_BUILD}" != "no" ]]; then
   git config --global --add safe.directory "/__w/$( echo "${GITHUB_REPOSITORY}" | awk '{print tolower($0)}' )"
 fi
 
+# Void deleted a lot of code here because a lot of the ifs were not used
+
 VOID_BRANCH="main"
 echo "Cloning void ${VOID_BRANCH}..."
 

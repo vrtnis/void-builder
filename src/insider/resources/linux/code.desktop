@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=@@NAME_LONG@@
-Comment=The open-source AI-native IDE
+Comment=The open source AI code editor
 GenericName=Text Editor
 Exec=@@EXEC@@ %F
 Icon=@@ICON@@

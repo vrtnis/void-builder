@@ -26,9 +26,6 @@ if [[ "${SHOULD_BUILD}" == "yes" ]]; then
   yarn gulp compile-extensions-build
   yarn gulp minify-vscode
 
-  echo "Done compiling...!"
-
-
   if [[ "${OS_NAME}" == "osx" ]]; then
     yarn gulp "vscode-darwin-${VSCODE_ARCH}-min-ci"
 
@@ -36,6 +33,9 @@ if [[ "${SHOULD_BUILD}" == "yes" ]]; then
 
     VSCODE_PLATFORM="darwin"
   elif [[ "${OS_NAME}" == "windows" ]]; then
+    # generate Group Policy definitions
+    # node build/lib/policies
+
     # in CI, packaging will be done by a different job
     if [[ "${CI_BUILD}" == "no" ]]; then
       . ../build/windows/rtf/make.sh

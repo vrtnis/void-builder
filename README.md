@@ -10,7 +10,7 @@ This repo hosts GitHub Actions. These actions build all the Void assets (.dmg, .
 
 ## Auto-updates in Void
 
-VSCodium comes with `.patch` files, including relevant ones to auto-updating, that we manually applied to the `void` repo. See the `.patch` files for more info. 
+VSCodium comes with `.patch` files, including relevant ones to auto-updating, that we manually applied to the `void` repo. See the `.patch` files for more info.
 Also see `abstractUpdateService.ts` in the `void` repo, and look for "updateUrl" and "downloadUrl" in `void-builder`.
 
 The only version that matters for updating is the version in `versions/`. The order of releases in `releases/`, for example, doesn't matter. There is also no comparison between version numbers anywhere; e.g. 1.0.2 is never compared to 1.0.3 and "not updated" because it's a lower version. However, there is a semver comparison in some of VSCodium's patches in the void repo, like `updateService.darwin.ts`.

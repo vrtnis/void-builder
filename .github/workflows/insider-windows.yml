@@ -15,18 +15,22 @@ on:
   repository_dispatch:
     types: [insider]
   push:
-    branches: [insider]
+    branches: [ insider ]
     paths-ignore:
-      - "**/*.md"
+    - '**/*.md'
+    - 'upstream/*.json'
   pull_request:
-    branches: [insider]
+    branches: [ insider ]
     paths-ignore:
-      - "**/*.md"
+    - '**/*.md'
 
 env:
-  APP_NAME: Void
-  ASSETS_REPOSITORY: ${{ github.repository_owner }}/binaries-insiders
+  APP_NAME: VSCodium
+  ASSETS_REPOSITORY: ${{ github.repository }}-insiders
+  BINARY_NAME: codium-insiders
   GITHUB_BRANCH: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || 'insider' }}
+  GH_REPO_PATH: ${{ github.repository_owner }}/${{ github.repository }}
+  ORG_NAME: ${{ github.repository_owner }}
   OS_NAME: windows
   VERSIONS_REPOSITORY: ${{ github.repository_owner }}/versions
   VSCODE_QUALITY: insider
@@ -59,10 +63,10 @@ jobs:
           GENERATE_ASSETS: ${{ github.event.inputs.generate_assets }}
         run: ./check_cron_or_pr.sh
 
-      - name: Check existing Void tags/releases
+      - name: Check existing VSCodium tags/releases
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CHECK_ALL: "yes"
+          CHECK_ALL: 'yes'
         run: ./check_tags.sh
 
   compile:
@@ -74,7 +78,7 @@ jobs:
       MS_TAG: ${{ needs.check.outputs.MS_TAG }}
       RELEASE_VERSION: ${{ needs.check.outputs.RELEASE_VERSION }}
       SHOULD_BUILD: ${{ (needs.check.outputs.SHOULD_BUILD == 'yes' || github.event.inputs.generate_assets == 'true') && 'yes' || 'no' }}
-      VSCODE_ARCH: "x64"
+      VSCODE_ARCH: 'x64'
     outputs:
       BUILD_SOURCEVERSION: ${{ env.BUILD_SOURCEVERSION }}
 
@@ -98,7 +102,7 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v4
         with:
-          node-version: "20.18.2"
+          node-version: '20.18.2'
         if: env.SHOULD_BUILD == 'yes'
 
       - name: Install Yarn
@@ -108,7 +112,7 @@ jobs:
       - name: Setup Python 3
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: '3.11'
         if: env.SHOULD_BUILD == 'yes'
 
       - name: Install libkrb5-dev
@@ -121,8 +125,8 @@ jobs:
 
       - name: Build
         env:
-          SHOULD_BUILD_REH: "no"
-          SHOULD_BUILD_REH_WEB: "no"
+          SHOULD_BUILD_REH: 'no'
+          SHOULD_BUILD_REH_WEB: 'no'
         run: ./build.sh
         if: env.SHOULD_BUILD == 'yes'
 
@@ -183,7 +187,7 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v4
         with:
-          node-version: "20.18.2"
+          node-version: '20.18.2'
         if: env.SHOULD_BUILD == 'yes'
 
       - name: Install Yarn
@@ -193,10 +197,10 @@ jobs:
       - name: Setup Python 3
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: '3.11'
         if: env.SHOULD_BUILD == 'yes'
 
-      - name: Check existing Void tags/releases
+      - name: Check existing VSCodium tags/releases
         env:
           DISABLE_MSI: ${{ vars.DISABLE_INSIDER_MSI }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -214,38 +218,38 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           npm_config_arch: ${{ matrix.vscode_arch }}
           npm_config_target_arch: ${{ matrix.vscode_arch }}
-        run: ./package_windows.sh
+        run: ./build/windows/package.sh
         if: env.SHOULD_BUILD == 'yes'
 
       - name: Prepare assets
         run: ./prepare_assets.sh
         if: env.SHOULD_BUILD == 'yes' && (env.SHOULD_DEPLOY == 'yes' || github.event.inputs.generate_assets == 'true')
 
-      # - name: Upload unsigned artifacts
-      #   id: upload-unsigned-artifacts
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: unsigned-${{ matrix.vscode_arch }}
-      #     path: |
-      #       assets/*.exe
-      #       assets/*.msi
-      #     retention-days: 1
-      #   if: env.SHOULD_BUILD == 'yes' && vars.DISABLE_INSIDER_WINDOWS_SIGNING != 'yes' && (env.SHOULD_DEPLOY == 'yes' || github.event.inputs.generate_assets == 'true')
+      - name: Upload unsigned artifacts
+        id: upload-unsigned-artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: unsigned-${{ matrix.vscode_arch }}
+          path: |
+            assets/*.exe
+            assets/*.msi
+          retention-days: 1
+        if: env.SHOULD_BUILD == 'yes' && vars.DISABLE_INSIDER_WINDOWS_SIGNING != 'yes' && (env.SHOULD_DEPLOY == 'yes' || github.event.inputs.generate_assets == 'true')
 
-      # - name: Signing
-      #   uses: signpath/github-action-submit-signing-request@v1
-      #   with:
-      #     api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
-      #     organization-id: ${{ secrets.SIGNPATH_ORGANIZATION_ID }}
-      #     project-slug: ${{ secrets.SIGNPATH_PROJECT_SLUG }}
-      #     signing-policy-slug: ${{ secrets.SIGNPATH_POLICY_SLUG }}
-      #     github-artifact-id: ${{ steps.upload-unsigned-artifacts.outputs.artifact-id }}
-      #     artifact-configuration-slug: ${{ matrix.vscode_arch }}
-      #     wait-for-completion: true
-      #     # 3h to manually approve the request
-      #     wait-for-completion-timeout-in-seconds: 10800
-      #     output-artifact-directory: assets/
-      #   if: env.SHOULD_BUILD == 'yes' && vars.DISABLE_INSIDER_WINDOWS_SIGNING != 'yes' && (env.SHOULD_DEPLOY == 'yes' || github.event.inputs.generate_assets == 'true')
+      - name: Signing
+        uses: signpath/github-action-submit-signing-request@v1
+        with:
+          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+          organization-id: ${{ secrets.SIGNPATH_ORGANIZATION_ID }}
+          project-slug: ${{ secrets.SIGNPATH_PROJECT_SLUG }}
+          signing-policy-slug: ${{ secrets.SIGNPATH_POLICY_SLUG }}
+          github-artifact-id: ${{ steps.upload-unsigned-artifacts.outputs.artifact-id }}
+          artifact-configuration-slug: ${{ matrix.vscode_arch }}
+          wait-for-completion: true
+          # 3h to manually approve the request
+          wait-for-completion-timeout-in-seconds: 10800
+          output-artifact-directory: assets/
+        if: env.SHOULD_BUILD == 'yes' && vars.DISABLE_INSIDER_WINDOWS_SIGNING != 'yes' && (env.SHOULD_DEPLOY == 'yes' || github.event.inputs.generate_assets == 'true')
 
       - name: Prepare checksums
         run: ./prepare_checksums.sh
@@ -253,7 +257,7 @@ jobs:
 
       - name: Release
         env:
-          GITHUB_TOKEN: ${{ secrets.BINARIES_RELEASE_PAT }}
+          GITHUB_TOKEN: ${{ secrets.STRONGER_GITHUB_TOKEN }}
           GITHUB_USERNAME: ${{ github.repository_owner }}
         run: ./release.sh
         if: env.SHOULD_BUILD == 'yes' && env.SHOULD_DEPLOY == 'yes'
@@ -261,7 +265,7 @@ jobs:
       - name: Update versions repo
         env:
           FORCE_UPDATE: ${{ github.event.inputs.force_version }}
-          GITHUB_TOKEN: ${{ secrets.BINARIES_RELEASE_PAT }}
+          GITHUB_TOKEN: ${{ secrets.STRONGER_GITHUB_TOKEN }}
           GITHUB_USERNAME: ${{ github.repository_owner }}
         run: ./update_version.sh
         if: env.SHOULD_BUILD == 'yes' && env.SHOULD_DEPLOY == 'yes'
@@ -281,7 +285,8 @@ jobs:
       run:
         shell: bash
     env:
-      APP_IDENTIFIER: Void.Void.Insiders
+      APP_IDENTIFIER: VSCodium.VSCodium.Insiders
+      ASSETS_REPOSITORY: vscodium-insiders
     if: needs.build.outputs.SHOULD_DEPLOY == 'yes'
 
     steps:
@@ -302,5 +307,5 @@ jobs:
           release-repository: ${{ env.ASSETS_REPOSITORY }}
           release-tag: ${{ env.RELEASE_VERSION }}-insider
           installers-regex: '\.exe$' # only .exe files
-          token: ${{ secrets.BINARIES_RELEASE_PAT }}
+          token: ${{ secrets.STRONGER_GITHUB_TOKEN }}
         if: env.SHOULD_DEPLOY == 'yes'

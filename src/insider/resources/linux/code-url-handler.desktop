@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=@@NAME_LONG@@ - URL Handler
-Comment=The open-source AI-native IDE
+Comment=The open source AI code editor
 GenericName=Text Editor
 Exec=@@EXEC@@ --open-url %U
 Icon=@@ICON@@

@@ -2,12 +2,14 @@
 # shellcheck disable=SC1091,SC2129
 
 ### Windows
-# to run with Bash: "C:\Program Files\Git\bin\bash.exe" ./build/build.sh
+# to run with Bash: "C:\Program Files\Git\bin\bash.exe" ./dev/build.sh
 ###
 
-export APP_NAME="Void"
-export BINARY_NAME="void"
+export APP_NAME="VSCodium"
+export BINARY_NAME="codium"
 export CI_BUILD="no"
+export GH_REPO_PATH="VSCodium/vscodium"
+export ORG_NAME="VSCodium"
 export SHOULD_BUILD="yes"
 export SKIP_ASSETS="yes"
 export SKIP_BUILD="no"
@@ -19,7 +21,7 @@ export VSCODE_SKIP_NODE_VERSION_CHECK="yes"
 while getopts ":ilops" opt; do
   case "$opt" in
     i)
-      export BINARY_NAME="void-insiders"
+      export BINARY_NAME="codium-insiders"
       export VSCODE_QUALITY="insider"
       ;;
     l)
@@ -84,16 +86,16 @@ if [[ "${SKIP_SOURCE}" == "no" ]]; then
   . version.sh
 
   # save variables for later
-  echo "MS_TAG=\"${MS_TAG}\"" > build.env
-  echo "MS_COMMIT=\"${MS_COMMIT}\"" >> build.env
-  echo "RELEASE_VERSION=\"${RELEASE_VERSION}\"" >> build.env
-  echo "BUILD_SOURCEVERSION=\"${BUILD_SOURCEVERSION}\"" >> build.env
+  echo "MS_TAG=\"${MS_TAG}\"" > dev/build.env
+  echo "MS_COMMIT=\"${MS_COMMIT}\"" >> dev/build.env
+  echo "RELEASE_VERSION=\"${RELEASE_VERSION}\"" >> dev/build.env
+  echo "BUILD_SOURCEVERSION=\"${BUILD_SOURCEVERSION}\"" >> dev/build.env
 else
   if [[ "${SKIP_ASSETS}" != "no" ]]; then
     rm -rf vscode-* VSCode-*
   fi
 
-  . build.env
+  . dev/build.env
 
   echo "MS_TAG=\"${MS_TAG}\""
   echo "MS_COMMIT=\"${MS_COMMIT}\""
@@ -119,23 +121,23 @@ if [[ "${SKIP_BUILD}" == "no" ]]; then
     mkdir -p ~/.gyp
 
     if [[ -f "${HOME}/.gyp/include.gypi" ]]; then
-      mv ~/.gyp/include.gypi ~/.gyp/include.gypi.pre-void
+      mv ~/.gyp/include.gypi ~/.gyp/include.gypi.pre-vscodium
     else
-      echo "{}" > ~/.gyp/include.gypi.pre-void
+      echo "{}" > ~/.gyp/include.gypi.pre-vscodium
     fi
 
-    cp ./include_osx.gypi ~/.gyp/include.gypi
+    cp ./build/osx/include.gypi ~/.gyp/include.gypi
   fi
 
   . build.sh
 
   if [[ -f "./include_${OS_NAME}.gypi" ]]; then
-    mv ~/.gyp/include.gypi.pre-void ~/.gyp/include.gypi
+    mv ~/.gyp/include.gypi.pre-vscodium ~/.gyp/include.gypi
   fi
 
-  if [[ "${VSCODE_LATEST}" == "yes" ]]; then # Void - FALSE
-    jsonTmp=$( cat "${VSCODE_QUALITY}.json" | jq --arg 'tag' "${MS_TAG/\-insider/}" --arg 'commit' "${MS_COMMIT}" '. | .tag=$tag | .commit=$commit' )
-    echo "${jsonTmp}" > "${VSCODE_QUALITY}.json" && unset jsonTmp
+  if [[ "${VSCODE_LATEST}" == "yes" ]]; then
+    jsonTmp=$( cat "./upstream/${VSCODE_QUALITY}.json" | jq --arg 'tag' "${MS_TAG/\-insider/}" --arg 'commit' "${MS_COMMIT}" '. | .tag=$tag | .commit=$commit' )
+    echo "${jsonTmp}" > "./upstream/${VSCODE_QUALITY}.json" && unset jsonTmp
   fi
 fi
 
@@ -144,8 +146,8 @@ if [[ "${SKIP_ASSETS}" == "no" ]]; then
     rm -rf build/windows/msi/releasedir
   fi
 
-  if [[ "${OS_NAME}" == "osx" && -f "./macos-codesign.env" ]]; then
-    . macos-codesign.env
+  if [[ "${OS_NAME}" == "osx" && -f "dev/osx/codesign.env" ]]; then
+    . dev/osx/macos-codesign.env
 
     echo "CERTIFICATE_OSX_ID: ${CERTIFICATE_OSX_ID}"
   fi

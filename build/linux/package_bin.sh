@@ -7,6 +7,9 @@ if [[ "${CI_BUILD}" == "no" ]]; then
   exit 1
 fi
 
+# include common functions
+. ./utils.sh
+
 tar -xzf ./vscode.tar.gz
 
 chown -R root:root vscode
@@ -41,33 +44,37 @@ elif [[ "${VSCODE_ARCH}" == "loong64" ]]; then
   export VSCODE_SKIP_SETUPENV=1
 fi
 
-if [[ -f "../electron_linux_${VSCODE_ARCH}.sh" ]]; then
+if [[ -f "../build/linux/${VSCODE_ARCH}/electron.sh" ]]; then
   # add newline at the end of the file
   echo "" >> build/checksums/electron.txt
 
-  if [[ -f "../electron_linux_${VSCODE_ARCH}.sha256sums" ]]; then
-    cat "../electron_linux_${VSCODE_ARCH}.sha256sums" >> build/checksums/electron.txt
+  if [[ -f "../build/linux/${VSCODE_ARCH}/electron.sha256sums" ]]; then
+    cat "../build/linux/${VSCODE_ARCH}/electron.sha256sums" >> build/checksums/electron.txt
   fi
 
   # shellcheck disable=SC1090
-  source "../electron_linux_${VSCODE_ARCH}.sh"
+  source "../build/linux/${VSCODE_ARCH}/electron.sh"
 
-  if [[ "${ELECTRON_VERSION}" != "$( yarn config get target )" ]]; then
+  TARGET=$( yarn config get target )
+
+  # Only fails at different major versions
+  if [[ "${ELECTRON_VERSION%%.*}" != "${TARGET%%.*}" ]]; then
     # Fail the pipeline if electron target doesn't match what is used.
     echo "Electron ${VSCODE_ARCH} binary version doesn't match target electron version!"
     echo "Releases available at: https://github.com/${VSCODE_ELECTRON_REPOSITORY}/releases"
     exit 1
+  fi
+
+  if [[ "${ELECTRON_VERSION}" != "${TARGET}" ]]; then
+    # Force version
+    replace "s|target=\"${TARGET}\"|target=\"${ELECTRON_VERSION}\"|" .npmrc
   fi
 fi
 
 if [[ -d "../patches/linux/client/" ]]; then
   for file in "../patches/linux/client/"*.patch; do
     if [[ -f "${file}" ]]; then
-      echo applying patch: "${file}";
-      if ! git apply --ignore-whitespace "${file}"; then
-        echo failed to apply patch "${file}" >&2
-        exit 1
-      fi
+      apply_patch "${file}"
     fi
   done
 fi
@@ -124,8 +131,8 @@ node build/azure-pipelines/distro/mixin-npm
 
 yarn gulp "vscode-linux-${VSCODE_ARCH}-min-ci"
 
-if [[ -f "../ripgrep_${VSCODE_PLATFORM}_${VSCODE_ARCH}.sh" ]]; then
-  bash "../ripgrep_${VSCODE_PLATFORM}_${VSCODE_ARCH}.sh" "../VSCode-linux-${VSCODE_ARCH}/resources/app/node_modules"
+if [[ -f "../build/linux/${VSCODE_ARCH}/ripgrep.sh" ]]; then
+  bash "../build/linux/${VSCODE_ARCH}/ripgrep.sh" "../VSCode-linux-${VSCODE_ARCH}/resources/app/node_modules"
 fi
 
 find "../VSCode-linux-${VSCODE_ARCH}" -print0 | xargs -0 touch -c

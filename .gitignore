@@ -2,7 +2,6 @@ vscode*
 VS*/*
 VSCode*
 VSCodium*
-Void*
 .DS_Store
 *.env
 assets/
@@ -12,10 +11,8 @@ build/linux/appimage/pkg2appimage-*.AppImage
 build/linux/appimage/pkg2appimage.AppImage
 build/linux/appimage/squashfs-root
 build/linux/appimage/VSCodium
-build/linux/appimage/Void
 build/windows/msi/releasedir
 build/windows/msi/Files*.wxs
 build/windows/msi/Files*.wixobj
 stores/snapcraft/insider/*.snap
 stores/snapcraft/stable/*.snap
-gha-creds-*.json
