@@ -39,6 +39,7 @@ MS_TAG=$( jq -r '.voidVersion' "product.json" )
 
 date=$( date +%Y%j )
 RELEASE_VERSION="${MS_TAG}.${date: -5}"
+# RELEASE_VERSION is later used as version (1.0.3+RELEASE_VERSION), so it MUST be a number or it will throw a semver error in void
 
 echo "RELEASE_VERSION=\"${RELEASE_VERSION}\""
 echo "MS_COMMIT=\"${MS_COMMIT}\""
