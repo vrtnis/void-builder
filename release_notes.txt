@@ -46,7 +46,7 @@ RELEASE_NOTES
     <td><a href="https://github.com/voideditor/binaries/releases/download/RELEASE_VERSION/void-reh-web-win32-x64-RELEASE_VERSION.tar.gz">void-reh-web-win32-x64-RELEASE_VERSION.tar.gz</a></td>
   </tr>
   <tr>
-    <td rowspan="4">macOS (Intel)</td>
+    <td rowspan="4">macOS (Intel Chip)</td>
     <td>.dmg</td>
     <td><a href="https://github.com/voideditor/binaries/releases/download/RELEASE_VERSION/Void.x64.RELEASE_VERSION.dmg">Void.x64.RELEASE_VERSION.dmg</a></td>
   </tr>
