@@ -8,8 +8,7 @@ Please go to https://voideditor.com to download Void instead.
 It's easy to accidentally download the wrong artifact below, and we might not maintain artifacts as expected.
 We recommend going to https://voideditor.com to download Void instead.
 
-
-update vscode to [MS_TAG](https://code.visualstudio.com/updates/vMS_TAG_SHORT)
+For developers: [`void-builder/`](https://github.com/voideditor/void-builder#readme)
 
 RELEASE_NOTES
 
