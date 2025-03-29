@@ -45,9 +45,9 @@ if [[ -z "${RELEASE_VERSION}" ]]; then
   date=$( date +%Y%j )
 
   if [[ "${VSCODE_QUALITY}" == "insider" ]]; then
-    RELEASE_VERSION="${MS_TAG}.${date: -5}-insider"
+    RELEASE_VERSION="${MS_TAG}.${date: -9}-insider"
   else
-    RELEASE_VERSION="${MS_TAG}.${date: -5}"
+    RELEASE_VERSION="${MS_TAG}.${date: -9}"
   fi
 else
   if [[ "${VSCODE_QUALITY}" == "insider" ]]; then
