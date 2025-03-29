@@ -109,6 +109,8 @@ jobs:
           GITHUB_USERNAME: ${{ github.repository_owner }}
         run: ./update_version.sh
         # ASSET_NAME = VSCode-darwin-arm64.exe or whatever
+        # RELEASE_VERSION = voidVersion.date, eg 1.0.3.2025102454
+        # BUILD_SOURCEVERSION = checksum(RELEASE_VERSION)
 
         # creates a JSON with these fields:
         # sha1 = "assets/${ASSET_NAME}.sha1"
