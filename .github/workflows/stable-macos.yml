@@ -67,26 +67,26 @@ jobs:
         if: env.VSCODE_ARCH == 'x64'
 
       - name: Clone VSCode repo
-        run: . get_repo.sh
+        run: . get_repo.sh # clones the void repo
 
       - name: Check PR or cron
         env:
           GENERATE_ASSETS: ${{ github.event.inputs.generate_assets }}
-        run: . check_cron_or_pr.sh
+        run: . check_cron_or_pr.sh # exports SHOULD_BUILD and SHOULD_DEPLOY
 
       - name: Check existing Void tags/releases
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: . check_tags.sh
+        run: . check_tags.sh # exports SHOULD_BUILD and SHOULD_DEPLOY=true
         if: env.SHOULD_DEPLOY == 'yes'
 
       - name: Build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ./build.sh
+        run: ./build.sh # builds vscode/ folder into .app
         if: env.SHOULD_BUILD == 'yes'
 
-      - name: Prepare assets
+      - name: Prepare assets # builds .app, .dmg, .zip, .sha1, .sha256, etc, all assets
         env:
           CERTIFICATE_OSX_APP_PASSWORD: ${{ secrets.APPSTORE_CONNECT_PASSWORD }}
           CERTIFICATE_OSX_ID: ${{ secrets.APPSTORE_CONNECT_USERNAME }}
@@ -99,7 +99,7 @@ jobs:
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.BINARIES_RELEASE_PAT }}
-        run: ./release.sh
+        run: ./release.sh # creates the github release in binaries/ (ASSETS_REPOSITORY = "binaries")
         if: env.SHOULD_BUILD == 'yes' && env.SHOULD_DEPLOY == 'yes'
 
       - name: Update versions repo
@@ -108,9 +108,20 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.BINARIES_RELEASE_PAT }}
           GITHUB_USERNAME: ${{ github.repository_owner }}
         run: ./update_version.sh
+        # ASSET_NAME = VSCode-darwin-arm64.exe or whatever
+
+        # creates a JSON with these fields:
+        # sha1 = "assets/${ASSET_NAME}.sha1"
+        # sha256 = "assets/${ASSET_NAME}.sha256"
+        # url = (URL to the binary of this asset on github)
+        # name = "${RELEASE_VERSION}"
+        # version = "${BUILD_SOURCEVERSION}"
+        # productVersion = "${RELEASE_VERSION}"
+        # timestamp = now()
+
         if: env.SHOULD_DEPLOY == 'yes'
 
-      - name: Upload assets
+      - name: Upload assets # Void - does not typically run - only happens if not deploying but only building so we have a place to get the built assets from
         uses: actions/upload-artifact@v4
         with:
           name: bin-${{ matrix.vscode_arch }}
