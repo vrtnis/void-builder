@@ -5,9 +5,8 @@ Please go to https://voideditor.com to download Void instead.
 
 # Binaries (INTERNAL USE ONLY)
 
-It's easy to accidentally download the wrong artifact below,
-and we might not maintain artifacts as expected (main purpose is for Void's maintainers only),
-so we recommend going to https://voideditor.com to download Void instead.
+It's easy to accidentally download the wrong artifact below, and we might not maintain artifacts as expected.
+We recommend going to https://voideditor.com to download Void instead.
 
 
 update vscode to [MS_TAG](https://code.visualstudio.com/updates/vMS_TAG_SHORT)
