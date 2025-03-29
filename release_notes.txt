@@ -18,7 +18,7 @@ RELEASE_NOTES
 
 <table>
   <tr>
-    <td rowspan="7">Windows</td>
+    <td rowspan="7">Windows (x64)</td>
     <td>User Installer</td>
     <td><a href="https://github.com/voideditor/binaries/releases/download/RELEASE_VERSION/VoidUserSetup-x64-RELEASE_VERSION.exe">VoidUserSetup-x64-RELEASE_VERSION.exe</a></td>
   </tr>
@@ -47,7 +47,7 @@ RELEASE_NOTES
     <td><a href="https://github.com/voideditor/binaries/releases/download/RELEASE_VERSION/void-reh-web-win32-x64-RELEASE_VERSION.tar.gz">void-reh-web-win32-x64-RELEASE_VERSION.tar.gz</a></td>
   </tr>
   <tr>
-    <td rowspan="4">macOS</td>
+    <td rowspan="4">macOS (Intel)</td>
     <td>.dmg</td>
     <td><a href="https://github.com/voideditor/binaries/releases/download/RELEASE_VERSION/Void.x64.RELEASE_VERSION.dmg">Void.x64.RELEASE_VERSION.dmg</a></td>
   </tr>
@@ -64,7 +64,7 @@ RELEASE_NOTES
     <td><a href="https://github.com/voideditor/binaries/releases/download/RELEASE_VERSION/void-reh-web-darwin-x64-RELEASE_VERSION.tar.gz">void-reh-web-darwin-x64-RELEASE_VERSION.tar.gz</a></td>
   </tr>
   <tr>
-  <td rowspan="7">Linux</td>
+  <td rowspan="7">Linux (x64)</td>
     <td>.deb</td>
     <td><a href="https://github.com/voideditor/binaries/releases/download/RELEASE_VERSION/void_RELEASE_VERSION_amd64.deb">void_RELEASE_VERSION_amd64.deb</a></td>
   </tr>
@@ -110,7 +110,7 @@ RELEASE_NOTES
 
 <table>
   <tr>
-    <td rowspan="3">Windows</td>
+    <td rowspan="3">Windows (ARM)</td>
     <td>User Installer</td>
     <td><a href="https://github.com/voideditor/binaries/releases/download/RELEASE_VERSION/VoidUserSetup-arm64-RELEASE_VERSION.exe">VoidUserSetup-arm64-RELEASE_VERSION.exe</a></td>
   </tr>
@@ -123,7 +123,7 @@ RELEASE_NOTES
     <td><a href="https://github.com/voideditor/binaries/releases/download/RELEASE_VERSION/Void-win32-arm64-RELEASE_VERSION.zip">Void-win32-arm64-RELEASE_VERSION.zip</a></td>
   </tr>
   <tr>
-    <td rowspan="4">macOS</td>
+    <td rowspan="4">macOS (Apple Silicon)</td>
     <td>.dmg</td>
     <td><a href="https://github.com/voideditor/binaries/releases/download/RELEASE_VERSION/Void.arm64.RELEASE_VERSION.dmg">Void.arm64.RELEASE_VERSION.dmg</a></td>
   </tr>
@@ -140,7 +140,7 @@ RELEASE_NOTES
     <td><a href="https://github.com/voideditor/binaries/releases/download/RELEASE_VERSION/void-reh-web-darwin-arm64-RELEASE_VERSION.tar.gz">void-reh-web-darwin-arm64-RELEASE_VERSION.tar.gz</a></td>
   </tr>
   <tr>
-    <td rowspan="6">Linux</td>
+    <td rowspan="6">Linux (ARM)</td>
     <td>.deb</td>
     <td><a href="https://github.com/voideditor/binaries/releases/download/RELEASE_VERSION/void_RELEASE_VERSION_arm64.deb">void_RELEASE_VERSION_arm64.deb</a></td>
   </tr>
