@@ -14,5 +14,5 @@ Actions like `stable-macos.sh` run when we manually run them (this might change 
 
 ## Updating
 
-VSCodium comes with `.patch` files that we manually applied to the void/ repo, including relevant ones to updating. See the `.patch` files for more info. Also see `abstractUpdateService.ts` in `void`, and look for "updateUrl" and "downloadUrl" in `void-builder`.
+VSCodium comes with `.patch` files that we manually applied to the `void` repo, including relevant ones to updating. See the `.patch` files for more info. Also see `abstractUpdateService.ts` in the `void` repo, and look for "updateUrl" and "downloadUrl" in `void-builder`.
 
