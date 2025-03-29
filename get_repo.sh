@@ -22,13 +22,8 @@ if [[ "${CI_BUILD}" != "no" ]]; then
   git config --global --add safe.directory "/__w/$( echo "${GITHUB_REPOSITORY}" | awk '{print tolower($0)}' )"
 fi
 
-echo "Get version from ${VSCODE_QUALITY}.json"
-MS_COMMIT=$( jq -r '.commit' "${VSCODE_QUALITY}.json" )
-MS_TAG=$( jq -r '.tag' "${VSCODE_QUALITY}.json" )
-
-date=$( date +%Y%j )
-RELEASE_VERSION="${MS_TAG}.${date: -5}"
-echo "RELEASE_VERSION=\"${RELEASE_VERSION}\""
+VOID_BRANCH="main"
+echo "Cloning void ${VOID_BRANCH}..."
 
 mkdir -p vscode
 cd vscode || { echo "'vscode' dir not found"; exit 1; }
@@ -36,12 +31,18 @@ cd vscode || { echo "'vscode' dir not found"; exit 1; }
 git init -q
 git remote add origin https://github.com/voideditor/void.git
 
+git fetch --depth 1 origin "${VOID_BRANCH}"
+git checkout FETCH_HEAD
 
+MS_COMMIT=$VOID_BRANCH
+MS_TAG=$( jq -r '.voidVersion' "product.json" )
+
+date=$( date +%Y%m%d%H%M%S )
+RELEASE_VERSION="${MS_TAG}.${date}"
+
+echo "RELEASE_VERSION=\"${RELEASE_VERSION}\""
 echo "MS_COMMIT=\"${MS_COMMIT}\""
 echo "MS_TAG=\"${MS_TAG}\""
-
-git fetch --depth 1 origin "${MS_COMMIT}"
-git checkout FETCH_HEAD
 
 cd ..
 
