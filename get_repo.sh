@@ -86,10 +86,12 @@ git remote add origin https://github.com/voideditor/void.git
 
 # figure out latest tag by calling MS update API
 if [[ -z "${MS_TAG}" ]]; then
+  echo "CALLING LATEST"
   UPDATE_INFO=$( curl --silent --fail "https://update.code.visualstudio.com/api/update/darwin/${VSCODE_QUALITY}/0000000000000000000000000000000000000000" )
   MS_COMMIT=$( echo "${UPDATE_INFO}" | jq -r '.version' )
   MS_TAG=$( echo "${UPDATE_INFO}" | jq -r '.name' )
 elif [[ -z "${MS_COMMIT}" ]]; then
+  echo "-z MS_COMMIT!!! "
   REFERENCE=$( git ls-remote --tags | grep -x ".*refs\/tags\/${MS_TAG}" | head -1 )
 
   if [[ -z "${REFERENCE}" ]]; then
@@ -104,8 +106,8 @@ elif [[ -z "${MS_COMMIT}" ]]; then
   fi
 fi
 
-echo "MS_TAG=\"${MS_TAG}\""
 echo "MS_COMMIT=\"${MS_COMMIT}\""
+echo "MS_TAG=\"${MS_TAG}\""
 
 git fetch --depth 1 origin "${MS_COMMIT}"
 git checkout FETCH_HEAD

@@ -133,7 +133,7 @@ if [[ "${SKIP_BUILD}" == "no" ]]; then
     mv ~/.gyp/include.gypi.pre-void ~/.gyp/include.gypi
   fi
 
-  if [[ "${VSCODE_LATEST}" == "yes" ]]; then
+  if [[ "${VSCODE_LATEST}" == "yes" ]]; then # Void - FALSE
     jsonTmp=$( cat "${VSCODE_QUALITY}.json" | jq --arg 'tag' "${MS_TAG/\-insider/}" --arg 'commit' "${MS_COMMIT}" '. | .tag=$tag | .commit=$commit' )
     echo "${jsonTmp}" > "${VSCODE_QUALITY}.json" && unset jsonTmp
   fi

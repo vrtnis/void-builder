@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 set -e
+# Void - THIS WHOLE FILE IS UNUSED
 
 if [[ "${SHOULD_BUILD}" != "yes" ]]; then
   echo "Will not update version JSON because we did not build"
