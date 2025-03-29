@@ -6,7 +6,7 @@ Big thanks to the CodeStory team for inspiring this.
 
 ## What it does
 
-This repo has GitHub Actions that build assets into the `voideditor/binaries` repo and update the `voideditor/versions` repo.
+This repo has GitHub Actions that build Void assets (.dmg, .zip, etc) into the `voideditor/binaries` repo and update the `voideditor/versions` repo so the versions can be tracked for updating.
 
 See `stable-macos.sh` for one of the main actions with some comments added by the Void team.
 
