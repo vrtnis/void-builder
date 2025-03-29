@@ -77,16 +77,16 @@ jobs:
       - name: Check existing Void tags/releases
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: . check_tags.sh # exports SHOULD_BUILD and SHOULD_DEPLOY=true
+        run: . check_tags.sh # exports SHOULD_BUILD=true and SHOULD_DEPLOY=true, and SHOULD_BUILD_TAR=true, etc
         if: env.SHOULD_DEPLOY == 'yes'
 
       - name: Build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ./build.sh # builds vscode/ folder into .app
+        run: ./build.sh # builds vscode/ folder (void repo)
         if: env.SHOULD_BUILD == 'yes'
 
-      - name: Prepare assets # builds .app, .dmg, .zip, .sha1, .sha256, etc, all assets
+      - name: Prepare assets # turns the build into .app, .dmg, .zip, .sha1, .sha256, etc, all the assets
         env:
           CERTIFICATE_OSX_APP_PASSWORD: ${{ secrets.APPSTORE_CONNECT_PASSWORD }}
           CERTIFICATE_OSX_ID: ${{ secrets.APPSTORE_CONNECT_USERNAME }}
