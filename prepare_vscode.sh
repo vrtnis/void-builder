@@ -22,46 +22,43 @@ cd vscode || { echo "'vscode' dir not found"; exit 1; }
 # apply patches
 { set +x; } 2>/dev/null
 
+echo "APP_NAME=\"${APP_NAME}\""
+echo "APP_NAME_LC=\"${APP_NAME_LC}\""
+echo "BINARY_NAME=\"${BINARY_NAME}\""
+echo "GH_REPO_PATH=\"${GH_REPO_PATH}\""
+echo "ORG_NAME=\"${ORG_NAME}\""
+
+echo "Applying patches at ../patches/*.patch..."
 for file in ../patches/*.patch; do
   if [[ -f "${file}" ]]; then
-    echo applying patch: "${file}";
-    # grep '^+++' "${file}"  | sed -e 's#+++ [ab]/#./vscode/#' | while read line; do shasum -a 256 "${line}"; done
-    if ! git apply --ignore-whitespace "${file}"; then
-      echo "warning: failed to apply patch ${file}, continuing anyway" >&2
-    fi
+    apply_patch "${file}"
   fi
 done
 
 if [[ "${VSCODE_QUALITY}" == "insider" ]]; then
+  echo "Applying insider patches..."
   for file in ../patches/insider/*.patch; do
     if [[ -f "${file}" ]]; then
-      echo applying patch: "${file}";
-      if ! git apply --ignore-whitespace "${file}"; then
-        echo "warning: failed to apply patch ${file}, continuing anyway" >&2
-      fi
+      apply_patch "${file}"
     fi
   done
 fi
-
-for file in ../patches/user/*.patch; do
-  if [[ -f "${file}" ]]; then
-    echo applying user patch: "${file}";
-    if ! git apply --ignore-whitespace "${file}"; then
-      echo "warning: failed to apply patch ${file}, continuing anyway" >&2
-    fi
-  fi
-done
 
 if [[ -d "../patches/${OS_NAME}/" ]]; then
+  echo "Applying OS patches (${OS_NAME})..."
   for file in "../patches/${OS_NAME}/"*.patch; do
     if [[ -f "${file}" ]]; then
-      echo applying patch: "${file}";
-      if ! git apply --ignore-whitespace "${file}"; then
-        echo "warning: failed to apply patch ${file}, continuing anyway" >&2
-      fi
+      apply_patch "${file}"
     fi
   done
 fi
+
+echo "Applying user patches..."
+for file in ../patches/user/*.patch; do
+  if [[ -f "${file}" ]]; then
+    apply_patch "${file}"
+  fi
+done
 
 set -x
 
@@ -80,6 +77,9 @@ elif [[ "${OS_NAME}" == "windows" ]]; then
   fi
 fi
 
+mv .npmrc .npmrc.bak
+cp ../npmrc .npmrc
+
 for i in {1..5}; do # try 5 times
   npm ci && break
   if [[ $i == 3 ]]; then
@@ -90,6 +90,8 @@ for i in {1..5}; do # try 5 times
 
   sleep $(( 15 * (i + 1)))
 done
+
+mv .npmrc.bak .npmrc
 
 setpath() {
   local jsonTmp

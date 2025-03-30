@@ -15,17 +15,25 @@ on:
   repository_dispatch:
     types: [stable]
   push:
-    branches: [cs-master]
+    branches: [ master ]
     paths-ignore:
-      - "**/*.md"
+    - '**/*.md'
+    - 'upstream/*.json'
   pull_request:
-    branches: [cs-master]
+    branches: [ master ]
     paths-ignore:
-      - "**/*.md"
+    - '**/*.md'
 
 env:
   APP_NAME: Void
+  # ASSETS_REPOSITORY is where all the downloads are.
+  # VSCodium has this be the current repo, voideditor/void-builder:
+  # ASSETS_REPOSITORY: ${{ github.repository }}
+
   ASSETS_REPOSITORY: ${{ github.repository_owner }}/binaries
+  BINARY_NAME: void
+  GH_REPO_PATH: ${{ github.repository_owner }}/${{ github.repository }}
+  ORG_NAME: ${{ github.repository_owner }}
   OS_NAME: osx
   VERSIONS_REPOSITORY: ${{ github.repository_owner }}/versions
   VSCODE_QUALITY: stable
@@ -42,7 +50,7 @@ jobs:
         include:
           - runner: macos-13
             vscode_arch: x64
-          - runner: macos-14
+          - runner: [self-hosted, macOS, ARM64] # Void - macos-14 ???
             vscode_arch: arm64
 
     steps:
@@ -58,54 +66,54 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v4
         with:
-          node-version: "20.18.2"
+          node-version: '20.18.2'
 
       - name: Setup Python 3
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: '3.11'
         if: env.VSCODE_ARCH == 'x64'
 
       - name: Clone VSCode repo
-        run: . get_repo.sh # clones the void repo
+        run: . get_repo.sh
 
       - name: Check PR or cron
         env:
           GENERATE_ASSETS: ${{ github.event.inputs.generate_assets }}
-        run: . check_cron_or_pr.sh # exports SHOULD_BUILD and SHOULD_DEPLOY
+        run: . check_cron_or_pr.sh
 
-      - name: Check existing Void tags/releases
+      - name: Check existing VSCodium tags/releases
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: . check_tags.sh # exports SHOULD_BUILD=true and SHOULD_DEPLOY=true, and SHOULD_BUILD_TAR=true, etc
+        run: . check_tags.sh
         if: env.SHOULD_DEPLOY == 'yes'
 
       - name: Build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ./build.sh # builds vscode/ folder (void repo)
+        run: ./build.sh
         if: env.SHOULD_BUILD == 'yes'
 
-      - name: Prepare assets # turns the build into .app, .dmg, .zip, .sha1, .sha256, etc, all the assets
+      - name: Prepare assets
         env:
-          CERTIFICATE_OSX_APP_PASSWORD: ${{ secrets.APPSTORE_CONNECT_PASSWORD }}
-          CERTIFICATE_OSX_ID: ${{ secrets.APPSTORE_CONNECT_USERNAME }}
-          CERTIFICATE_OSX_P12_DATA: ${{ secrets.CERTIFICATE_OSX_P12 }}
-          CERTIFICATE_OSX_P12_PASSWORD: ${{ secrets.CERTIFICATE_OSX_PASSWORD }}
-          CERTIFICATE_OSX_TEAM_ID: ${{ secrets.APPSTORE_CONNECT_TEAM_ID }}
+          CERTIFICATE_OSX_APP_PASSWORD: ${{ secrets.CERTIFICATE_OSX_NEW_APP_PASSWORD }}
+          CERTIFICATE_OSX_ID: ${{ secrets.CERTIFICATE_OSX_NEW_ID }}
+          CERTIFICATE_OSX_P12_DATA: ${{ secrets.CERTIFICATE_OSX_NEW_P12_DATA }}
+          CERTIFICATE_OSX_P12_PASSWORD: ${{ secrets.CERTIFICATE_OSX_NEW_P12_PASSWORD }}
+          CERTIFICATE_OSX_TEAM_ID: ${{ secrets.CERTIFICATE_OSX_NEW_TEAM_ID }}
         run: ./prepare_assets.sh
         if: env.SHOULD_BUILD == 'yes' && (env.SHOULD_DEPLOY == 'yes' || github.event.inputs.generate_assets == 'true')
 
       - name: Release
         env:
-          GITHUB_TOKEN: ${{ secrets.BINARIES_RELEASE_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ./release.sh # creates the github release in binaries/ (ASSETS_REPOSITORY = "binaries")
         if: env.SHOULD_BUILD == 'yes' && env.SHOULD_DEPLOY == 'yes'
 
       - name: Update versions repo
         env:
           FORCE_UPDATE: ${{ github.event.inputs.force_version }}
-          GITHUB_TOKEN: ${{ secrets.BINARIES_RELEASE_PAT }}
+          GITHUB_TOKEN: ${{ secrets.STRONGER_GITHUB_TOKEN }} # used to be called BINARIES_RELEASE_PAT by aide
           GITHUB_USERNAME: ${{ github.repository_owner }}
         run: ./update_version.sh
         # ASSET_NAME = VSCode-darwin-arm64.exe or whatever

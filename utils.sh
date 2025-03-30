@@ -21,8 +21,8 @@ apply_patch() {
   replace "s|!!ORG_NAME!!|${ORG_NAME}|g" "$1"
 
   if ! git apply --ignore-whitespace "$1"; then
-    echo failed to apply patch "$1" >&2
-    exit 1
+    echo "warning: failed to apply patch ${$1}, continuing anyway" >&2
+    # exit 1
   fi
 }
 

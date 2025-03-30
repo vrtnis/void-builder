@@ -15,17 +15,21 @@ on:
   repository_dispatch:
     types: [stable]
   push:
-    branches: [cs-master]
+    branches: [ master ]
     paths-ignore:
-      - "**/*.md"
+    - '**/*.md'
+    - 'upstream/*.json'
   pull_request:
-    branches: [cs-master]
+    branches: [ master ]
     paths-ignore:
-      - "**/*.md"
+    - '**/*.md'
 
 env:
   APP_NAME: Void
   ASSETS_REPOSITORY: ${{ github.repository_owner }}/binaries
+  BINARY_NAME: void
+  GH_REPO_PATH: ${{ github.repository_owner }}/${{ github.repository }}
+  ORG_NAME: ${{ github.repository_owner }}
   OS_NAME: windows
   VERSIONS_REPOSITORY: ${{ github.repository_owner }}/versions
   VSCODE_QUALITY: stable
@@ -59,10 +63,10 @@ jobs:
           GENERATE_ASSETS: ${{ github.event.inputs.generate_assets }}
         run: ./check_cron_or_pr.sh
 
-      - name: Check existing Void tags/releases
+      - name: Check existing VSCodium tags/releases
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CHECK_ALL: "yes"
+          CHECK_ALL: 'yes'
         run: ./check_tags.sh
 
   compile:
@@ -74,7 +78,7 @@ jobs:
       MS_TAG: ${{ needs.check.outputs.MS_TAG }}
       RELEASE_VERSION: ${{ needs.check.outputs.RELEASE_VERSION }}
       SHOULD_BUILD: ${{ (needs.check.outputs.SHOULD_BUILD == 'yes' || github.event.inputs.generate_assets == 'true') && 'yes' || 'no' }}
-      VSCODE_ARCH: "x64"
+      VSCODE_ARCH: 'x64'
     outputs:
       BUILD_SOURCEVERSION: ${{ env.BUILD_SOURCEVERSION }}
 
@@ -98,7 +102,7 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v4
         with:
-          node-version: "20.18.2"
+          node-version: '20.18.2'
         if: env.SHOULD_BUILD == 'yes'
 
       - name: Install Yarn
@@ -108,7 +112,7 @@ jobs:
       - name: Setup Python 3
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: '3.11'
         if: env.SHOULD_BUILD == 'yes'
 
       - name: Install libkrb5-dev
@@ -121,8 +125,8 @@ jobs:
 
       - name: Build
         env:
-          SHOULD_BUILD_REH: "no"
-          SHOULD_BUILD_REH_WEB: "no"
+          SHOULD_BUILD_REH: 'no'
+          SHOULD_BUILD_REH_WEB: 'no'
         run: ./build.sh
         if: env.SHOULD_BUILD == 'yes'
 
@@ -183,7 +187,7 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v4
         with:
-          node-version: "20.18.2"
+          node-version: '20.18.2'
         if: env.SHOULD_BUILD == 'yes'
 
       - name: Install Yarn
@@ -193,10 +197,10 @@ jobs:
       - name: Setup Python 3
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: '3.11'
         if: env.SHOULD_BUILD == 'yes'
 
-      - name: Check existing Void tags/releases
+      - name: Check existing VSCodium tags/releases
         env:
           DISABLE_MSI: ${{ vars.DISABLE_STABLE_MSI }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -214,7 +218,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           npm_config_arch: ${{ matrix.vscode_arch }}
           npm_config_target_arch: ${{ matrix.vscode_arch }}
-        run: ./package_windows.sh
+        run: ./build/windows/package.sh
         if: env.SHOULD_BUILD == 'yes'
 
       - name: Prepare assets
@@ -253,14 +257,14 @@ jobs:
 
       - name: Release
         env:
-          GITHUB_TOKEN: ${{ secrets.BINARIES_RELEASE_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ./release.sh
         if: env.SHOULD_BUILD == 'yes' && env.SHOULD_DEPLOY == 'yes'
 
       - name: Update versions repo
         env:
           FORCE_UPDATE: ${{ github.event.inputs.force_version }}
-          GITHUB_TOKEN: ${{ secrets.BINARIES_RELEASE_PAT }}
+          GITHUB_TOKEN: ${{ secrets.STRONGER_GITHUB_TOKEN }}
           GITHUB_USERNAME: ${{ github.repository_owner }}
         run: ./update_version.sh
         if: env.SHOULD_BUILD == 'yes' && env.SHOULD_DEPLOY == 'yes'
@@ -300,5 +304,5 @@ jobs:
           version: ${{ env.RELEASE_VERSION }}
           release-tag: ${{ env.RELEASE_VERSION }}
           installers-regex: '\.exe$' # only .exe files
-          token: ${{ secrets.BINARIES_RELEASE_PAT }}
+          token: ${{ secrets.STRONGER_GITHUB_TOKEN }}
         if: env.SHOULD_DEPLOY == 'yes'
