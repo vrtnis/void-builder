@@ -1,14 +1,17 @@
 We do NOT recommend downloading Void below!
 
-Please go to https://voideditor.com to download Void instead.
+Please go to https://voideditor.com to download Void.
 
+For maintainers: [`void-builder/`](https://github.com/voideditor/void-builder#readme)
 
 # Binaries (INTERNAL USE ONLY)
+
+<details>
 
 It's easy to accidentally download the wrong artifact below, and we might not maintain artifacts as expected.
 We recommend going to https://voideditor.com to download Void instead.
 
-For developers: [`void-builder/`](https://github.com/voideditor/void-builder#readme)
+
 
 RELEASE_NOTES
 
@@ -266,3 +269,5 @@ RELEASE_NOTES
     <td><a href="https://github.com/voideditor/binaries/releases/download/RELEASE_VERSION/void-reh-web-linux-s390x-RELEASE_VERSION.tar.gz">void-reh-web-linux-s390x-RELEASE_VERSION.tar.gz</a></td>
   </tr>
 </table>
+
+</details>
