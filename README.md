@@ -21,3 +21,38 @@ See `stable-macos.sh` for one of the main Actions with some comments added by th
 
 Actions like `stable-macos.sh` run when we manually run them (this might change in the future and be listener-based).
 
+
+## Notes
+
+<detail>
+
+### We manually applied the following VSCodium patches/ to the void/ repo to make sure they are applied, because we were getting patch-apply errors sometimes:
+
+- version0
+- version1
+- ext-from-gh
+- update-electron
+- merge-user-product
+- osx/
+- everything else in the top level patches/ folder except exceptions below
+
+
+### We didn't manually apply these patches:
+
+Folders:
+- windows/ (doesn't seem relevant)
+- linux/ (we didn't apply it, but the auto patch works)
+- insider/
+- helper/settings (this doesn't seem like something VSCodium should be modifying)
+
+
+Top level:
+- brand
+- feat-announcements
+- fix-eol-banner
+- terminal-suggest
+
+
+</detail>
+
+
