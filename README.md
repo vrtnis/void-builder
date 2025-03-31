@@ -24,7 +24,7 @@ Actions like `stable-macos.sh` run when we manually run them (this might change 
 
 ## Notes
 
-<detail>
+<details>
 
 ### We manually applied the following VSCodium patches/ to the void/ repo to make sure they are applied, because we were getting patch-apply errors sometimes:
 
@@ -53,6 +53,6 @@ Top level:
 - terminal-suggest
 
 
-</detail>
+</details>
 
 
