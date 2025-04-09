@@ -4,6 +4,8 @@ This is a fork of VSCodium, which has a nice build pipeline that we're using for
 
 Big thanks to the CodeStory team for inspiring this.
 
+The purpose of this repo is to run the [these Github Actions](https://github.com/voideditor/void-builder/actions).
+
 ## What it does
 
 This repo hosts GitHub Actions. These actions build all the Void assets (.dmg, .zip, etc), and then they store them on a release in the [`voideditor/binaries`](https://github.com/voideditor/binaries/releases) repo, and then they set the latest version in the [`voideditor/versions`](https://github.com/voideditor/versions) repo so the versions can be tracked for updating.
