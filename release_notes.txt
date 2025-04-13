@@ -80,8 +80,8 @@ RELEASE_NOTES
   <tr>
     <td>AppImage</td>
     <td>
-      <a href="https://github.com/voideditor/binaries/releases/download/RELEASE_VERSION/Void-RELEASE_VERSION.glibc2.25-x86_64.AppImage">Void-RELEASE_VERSION.glibc2.25-x86_64.AppImage</a><br />
-      <a href="https://github.com/voideditor/binaries/releases/download/RELEASE_VERSION/Void-RELEASE_VERSION.glibc2.25-x86_64.AppImage.zsync">Void-RELEASE_VERSION.glibc2.25-x86_64.AppImage.zsync</a>
+      <a href="https://github.com/voideditor/binaries/releases/download/RELEASE_VERSION/Void-RELEASE_VERSION.glibc2.29-x86_64.AppImage">Void-RELEASE_VERSION.glibc2.29-x86_64.AppImage</a><br />
+      <a href="https://github.com/voideditor/binaries/releases/download/RELEASE_VERSION/Void-RELEASE_VERSION.glibc2.29-x86_64.AppImage.zsync">Void-RELEASE_VERSION.glibc2.29-x86_64.AppImage.zsync</a>
     </td>
   </tr>
   <tr>
