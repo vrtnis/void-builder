@@ -4,16 +4,24 @@ Please go to https://voideditor.com to download Void.
 
 For maintainers: [`void-builder/`](https://github.com/voideditor/void-builder#readme)
 
-# Binaries (INTERNAL USE ONLY)
+# Binaries
+
+## Windows
+- <a href="https://github.com/voideditor/binaries/releases/download/RELEASE_VERSION/VoidUserSetup-x64-RELEASE_VERSION.exe">Windows (x64)</a>
+- <a href="https://github.com/voideditor/binaries/releases/download/RELEASE_VERSION/VoidSetup-arm64-RELEASE_VERSION.exe">Windows (ARM)</a>
+
+## Mac
+- <a href="https://github.com/voideditor/binaries/releases/download/RELEASE_VERSION/Void.x64.RELEASE_VERSION.dmg">Mac (x64 / Intel)</a>
+- <a href="https://github.com/voideditor/binaries/releases/download/RELEASE_VERSION/Void.arm64.RELEASE_VERSION.dmg">Mac (ARM / M Chip)</a>
+
+## Linux
+- <a href="https://github.com/voideditor/binaries/releases/download/RELEASE_VERSION/Void-RELEASE_VERSION.glibc2.29-x86_64.AppImage">Linux (AppImage)</a>
+- <a href="https://github.com/voideditor/binaries/releases/download/RELEASE_VERSION/void_RELEASE_VERSION_arm64.deb">Linux (ARM)</a>
+
 
 <details>
 
-It's easy to accidentally download the wrong artifact below, and we might not maintain artifacts as expected.
-We recommend going to https://voideditor.com to download Void instead.
-
-
-
-RELEASE_NOTES
+Here are all the binaries that VSCodium's build pipeline produces if you want to dig in.
 
 ## x86 64bits
 
