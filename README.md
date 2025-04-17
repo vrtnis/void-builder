@@ -4,7 +4,7 @@ This is a fork of VSCodium, which has a nice build pipeline that we're using for
 
 Big thanks to the CodeStory team for inspiring this.
 
-The purpose of this repo is to run the [these Github Actions](https://github.com/voideditor/void-builder/actions).
+The purpose of this repo is to run the [the Github Actions](https://github.com/voideditor/void-builder/actions) in this repo.
 
 ## What it does
 
