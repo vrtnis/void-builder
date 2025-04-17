@@ -6,7 +6,7 @@ For maintainers: [`void-builder/`](https://github.com/voideditor/void-builder#re
 # Binaries
 
 ## Windows
-- <a href="https://github.com/voideditor/binaries/releases/download/RELEASE_VERSION/VoidUserSetup-x64-RELEASE_VERSION.exe">Windows (x64)</a>
+- <a href="https://github.com/voideditor/binaries/releases/download/RELEASE_VERSION/VoidSetup-x64-RELEASE_VERSION.exe">Windows (x64)</a>
 - <a href="https://github.com/voideditor/binaries/releases/download/RELEASE_VERSION/VoidSetup-arm64-RELEASE_VERSION.exe">Windows (ARM)</a>
 
 ## Mac
