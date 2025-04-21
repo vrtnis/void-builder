@@ -33,8 +33,16 @@ cd vscode || { echo "'vscode' dir not found"; exit 1; }
 git init -q
 git remote add origin https://github.com/voideditor/void.git
 
-git fetch --depth 1 origin "${VOID_BRANCH}"
-git checkout FETCH_HEAD
+if [[ -n "${VOID_COMMIT}" ]]; then
+  echo "Using explicit commit ${VOID_COMMIT}"
+  # Fetch just that commit to keep the clone shallow.
+  git fetch --depth 1 origin "${VOID_COMMIT}"
+  git checkout "${VOID_COMMIT}"
+else
+  git fetch --depth 1 origin "${VOID_BRANCH}"
+  git checkout FETCH_HEAD
+fi
+
 
 MS_COMMIT=$VOID_BRANCH # VSCodium named this incorrectly, it should be called branch not commit
 MS_TAG=$( jq -r '.voidVersion' "product.json" )
