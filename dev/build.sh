@@ -6,7 +6,7 @@
 ###
 
 export APP_NAME="Void"
-export BINARY_NAME="void"
+export BINARY_NAME="codium"
 export CI_BUILD="no"
 export GH_REPO_PATH="voideditor/void"
 export ORG_NAME="voideditor"
@@ -21,7 +21,7 @@ export VSCODE_SKIP_NODE_VERSION_CHECK="yes"
 while getopts ":ilops" opt; do
   case "$opt" in
     i)
-      export BINARY_NAME="void-insiders"
+      export BINARY_NAME="codium-insiders"
       export VSCODE_QUALITY="insider"
       ;;
     l)

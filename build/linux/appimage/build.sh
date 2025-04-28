@@ -33,6 +33,7 @@ if [[ "${VSCODE_ARCH}" == "x64" ]]; then
     sed -i 's|@@APPNAME@@|void-insiders|g' recipe.yml
     sed -i 's|@@ICON@@|void-insiders|g' recipe.yml
   else
+    # Void branding instead of default codium
     sed -i 's|@@NAME@@|Void|g' recipe.yml
     sed -i 's|@@APPNAME@@|void|g' recipe.yml
     sed -i 's|@@ICON@@|void|g' recipe.yml
@@ -44,7 +45,7 @@ if [[ "${VSCODE_ARCH}" == "x64" ]]; then
 
   rm -f pkg2appimage-*.AppImage
   rm -rf pkg2appimage.AppDir
-  # rm -rf Void*
+  rm -rf Void* # Void had this commented out at one point
 fi
 
 cd "${CALLER_DIR}"

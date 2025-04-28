@@ -13,7 +13,8 @@ set -e
 #   cp -rp src/stable/* vscode/
 # fi
 
-cp -f LICENSE vscode/LICENSE.txt
+# Void - keep our license...
+# cp -f LICENSE vscode/LICENSE.txt
 
 cd vscode || { echo "'vscode' dir not found"; exit 1; }
 
@@ -28,7 +29,7 @@ echo "BINARY_NAME=\"${BINARY_NAME}\""
 echo "GH_REPO_PATH=\"${GH_REPO_PATH}\""
 echo "ORG_NAME=\"${ORG_NAME}\""
 
-echo "Applying patches at ../patches/*.patch..."
+echo "Applying patches at ../patches/*.patch..." # Void comment
 for file in ../patches/*.patch; do
   if [[ -f "${file}" ]]; then
     apply_patch "${file}"
@@ -36,7 +37,7 @@ for file in ../patches/*.patch; do
 done
 
 if [[ "${VSCODE_QUALITY}" == "insider" ]]; then
-  echo "Applying insider patches..."
+  echo "Applying insider patches..." # Void comment
   for file in ../patches/insider/*.patch; do
     if [[ -f "${file}" ]]; then
       apply_patch "${file}"
@@ -45,7 +46,7 @@ if [[ "${VSCODE_QUALITY}" == "insider" ]]; then
 fi
 
 if [[ -d "../patches/${OS_NAME}/" ]]; then
-  echo "Applying OS patches (${OS_NAME})..."
+  echo "Applying OS patches (${OS_NAME})..." # Void comment
   for file in "../patches/${OS_NAME}/"*.patch; do
     if [[ -f "${file}" ]]; then
       apply_patch "${file}"
@@ -53,7 +54,7 @@ if [[ -d "../patches/${OS_NAME}/" ]]; then
   done
 fi
 
-echo "Applying user patches..."
+echo "Applying user patches..." # Void comment
 for file in ../patches/user/*.patch; do
   if [[ -f "${file}" ]]; then
     apply_patch "${file}"
@@ -75,13 +76,22 @@ elif [[ "${OS_NAME}" == "windows" ]]; then
   if [[ "${npm_config_arch}" == "arm" ]]; then
     export npm_config_arm_version=7
   fi
+else
+  if [[ "${CI_BUILD}" != "no" ]]; then
+    clang++ --version
+  fi
 fi
 
 mv .npmrc .npmrc.bak
 cp ../npmrc .npmrc
 
 for i in {1..5}; do # try 5 times
-  npm ci && break
+  if [[ "${CI_BUILD}" != "no" && "${OS_NAME}" == "osx" ]]; then
+    CXX=clang++ npm ci && break
+  else
+    npm ci && break
+  fi
+
   if [[ $i == 3 ]]; then
     echo "Npm install failed too many times" >&2
     exit 1
@@ -113,23 +123,23 @@ setpath_json() {
 cp product.json{,.bak}
 
 setpath "product" "checksumFailMoreInfoUrl" "https://go.microsoft.com/fwlink/?LinkId=828886"
-setpath "product" "documentationUrl" "https://voideditor.com"
+setpath "product" "documentationUrl" "https://voideditor-test.com"
 # setpath_json "product" "extensionsGallery" '{"serviceUrl": "https://open-vsx.org/vscode/gallery", "itemUrl": "https://open-vsx.org/vscode/item"}'
 setpath "product" "introductoryVideosUrl" "https://go.microsoft.com/fwlink/?linkid=832146"
 setpath "product" "keyboardShortcutsUrlLinux" "https://go.microsoft.com/fwlink/?linkid=832144"
 setpath "product" "keyboardShortcutsUrlMac" "https://go.microsoft.com/fwlink/?linkid=832143"
 setpath "product" "keyboardShortcutsUrlWin" "https://go.microsoft.com/fwlink/?linkid=832145"
-setpath "product" "licenseUrl" "https://github.com/voideditor/void/blob/main/LICENSE.txt"
+setpath "product" "licenseUrl" "https://github.com/voideditor-test/void/blob/main/LICENSE.txt"
 # setpath_json "product" "linkProtectionTrustedDomains" '["https://open-vsx.org"]'
 # setpath "product" "releaseNotesUrl" "https://go.microsoft.com/fwlink/?LinkID=533483#vscode"
-setpath "product" "reportIssueUrl" "https://github.com/voideditor/void/issues/new"
-setpath "product" "requestFeatureUrl" "https://github.com/voideditor/void/issues/new"
+setpath "product" "reportIssueUrl" "https://github.com/voideditor-test/void/issues/new"
+setpath "product" "requestFeatureUrl" "https://github.com/voideditor-test/void/issues/new"
 setpath "product" "tipsAndTricksUrl" "https://go.microsoft.com/fwlink/?linkid=852118"
-setpath "product" "twitterUrl" "https://x.com/thevoideditor"
+setpath "product" "twitterUrl" "https://x.com/thevoideditor-test"
 
 if [[ "${DISABLE_UPDATE}" != "yes" ]]; then
-  setpath "product" "updateUrl" "https://raw.githubusercontent.com/voideditor/versions/refs/heads/main"
-  setpath "product" "downloadUrl" "https://github.com/voideditor/binaries/releases"
+  setpath "product" "updateUrl" "https://raw.githubusercontent.com/voideditor-test/versions/refs/heads/main"
+  setpath "product" "downloadUrl" "https://github.com/voideditor-test/binaries/releases"
 fi
 
 if [[ "${VSCODE_QUALITY}" == "insider" ]]; then
@@ -142,7 +152,7 @@ if [[ "${VSCODE_QUALITY}" == "insider" ]]; then
   setpath "product" "urlProtocol" "void-insiders"
   setpath "product" "serverApplicationName" "void-server-insiders"
   setpath "product" "serverDataFolderName" ".void-server-insiders"
-  setpath "product" "darwinBundleIdentifier" "ai.voideditor.VoidInsiders"
+  setpath "product" "darwinBundleIdentifier" "ai.voideditor-test.VoidInsiders"
   setpath "product" "win32AppUserModelId" "Void.VoidInsiders"
   setpath "product" "win32DirName" "Void Insiders"
   setpath "product" "win32MutexName" "voidinsiders"
@@ -171,12 +181,13 @@ else
   setpath "product" "win32NameVersion" "Void"
   setpath "product" "win32RegValueName" "Void"
   setpath "product" "win32ShellNameShort" "Void"
-  setpath "product" "win32AppId" "{{88DA3577-054F-4CA1-8122-7D820494CFFB}"
-  setpath "product" "win32x64AppId" "{{9D394D01-1728-45A7-B997-A6C82C5452C3}"
-  setpath "product" "win32arm64AppId" "{{0668DD58-2BDE-4101-8CDA-40252DF8875D}"
-  setpath "product" "win32UserAppId" "{{0FD05EB4-651E-4E78-A062-515204B47A3A}"
-  setpath "product" "win32x64UserAppId" "{{8BED5DC1-6C55-46E6-9FE6-18F7E6F7C7F1}"
-  setpath "product" "win32arm64UserAppId" "{{F6C87466-BC82-4A8F-B0FF-18CA366BA4D8}"
+  # Void - already set in product
+  # setpath "product" "win32AppId" "{{88DA3577-054F-4CA1-8122-7D820494CFFB}"
+  # setpath "product" "win32x64AppId" "{{9D394D01-1728-45A7-B997-A6C82C5452C3}"
+  # setpath "product" "win32arm64AppId" "{{0668DD58-2BDE-4101-8CDA-40252DF8875D}"
+  # setpath "product" "win32UserAppId" "{{0FD05EB4-651E-4E78-A062-515204B47A3A}"
+  # setpath "product" "win32x64UserAppId" "{{8BED5DC1-6C55-46E6-9FE6-18F7E6F7C7F1}"
+  # setpath "product" "win32arm64UserAppId" "{{F6C87466-BC82-4A8F-B0FF-18CA366BA4D8}"
 fi
 
 jsonTmp=$( jq -s '.[0] * .[1]' product.json ../product.json )
@@ -187,14 +198,33 @@ cat product.json
 # package.json
 cp package.json{,.bak}
 
-# Void commented this out
-# setpath "package" "version" "$( echo "${RELEASE_VERSION}" | sed -n -E "s/^(.*)\.([0-9]+)(-insider)?$/\1/p" )"
-setpath "package" "release" "$( echo "${RELEASE_VERSION}" | sed -n -E "s/^(.*)\.([0-9]+)(-insider)?$/\2/p" )"
+setpath "package" "version" "${RELEASE_VERSION%-insider}"
 
 replace 's|Microsoft Corporation|Void|' package.json
 
+cp resources/server/manifest.json{,.bak}
+
+if [[ "${VSCODE_QUALITY}" == "insider" ]]; then
+  setpath "resources/server/manifest" "name" "Void - Insiders"
+  setpath "resources/server/manifest" "short_name" "Void - Insiders"
+else
+  setpath "resources/server/manifest" "name" "Void"
+  setpath "resources/server/manifest" "short_name" "Void"
+fi
+
+cp resources/server/manifest.json{,.bak}
+
+if [[ "${VSCODE_QUALITY}" == "insider" ]]; then
+  setpath "resources/server/manifest" "name" "Void - Insiders"
+  setpath "resources/server/manifest" "short_name" "Void - Insiders"
+else
+  # Void already has this
+  setpath "resources/server/manifest" "name" "Void"
+  setpath "resources/server/manifest" "short_name" "Void"
+fi
+
 # announcements
-replace "s|\\[\\/\\* BUILTIN_ANNOUNCEMENTS \\*\\/\\]|$( tr -d '\n' < ../announcements-builtin.json )|" src/vs/workbench/contrib/welcomeGettingStarted/browser/gettingStarted.ts
+# replace "s|\\[\\/\\* BUILTIN_ANNOUNCEMENTS \\*\\/\\]|$( tr -d '\n' < ../announcements-builtin.json )|" src/vs/workbench/contrib/welcomeGettingStarted/browser/gettingStarted.ts
 
 ../undo_telemetry.sh
 
@@ -217,28 +247,28 @@ if [[ "${OS_NAME}" == "linux" ]]; then
   # fix the packages metadata
   # code.appdata.xml
   sed -i 's|Visual Studio Code|Void|g' resources/linux/code.appdata.xml
-  sed -i 's|https://code.visualstudio.com/docs/setup/linux|https://docs.void.dev|' resources/linux/code.appdata.xml
+  sed -i 's|https://code.visualstudio.com/docs/setup/linux|https://voideditor-test.com|' resources/linux/code.appdata.xml
   sed -i 's|https://code.visualstudio.com/home/home-screenshot-linux-lg.png|https://vscodium.com/img/vscodium.png|' resources/linux/code.appdata.xml
-  sed -i 's|https://code.visualstudio.com|https://void.dev|' resources/linux/code.appdata.xml
+  sed -i 's|https://code.visualstudio.com|https://voideditor-test.com|' resources/linux/code.appdata.xml
 
   # control.template
-  sed -i 's|Microsoft Corporation <vscode-linux@microsoft.com>|Void Team <team@voideditor.com>|'  resources/linux/debian/control.template
+  sed -i 's|Microsoft Corporation <vscode-linux@microsoft.com>|Void Team <team@voideditor-test.com>|'  resources/linux/debian/control.template
   sed -i 's|Visual Studio Code|Void|g' resources/linux/debian/control.template
-  sed -i 's|https://code.visualstudio.com/docs/setup/linux|https://docs.void.dev|' resources/linux/debian/control.template
-  sed -i 's|https://code.visualstudio.com|https://void.dev|' resources/linux/debian/control.template
+  sed -i 's|https://code.visualstudio.com/docs/setup/linux|https://voideditor-test.com|' resources/linux/debian/control.template
+  sed -i 's|https://code.visualstudio.com|https://voideditor-test.com|' resources/linux/debian/control.template
 
   # code.spec.template
   sed -i 's|Microsoft Corporation|Void Team|' resources/linux/rpm/code.spec.template
-  sed -i 's|Visual Studio Code Team <vscode-linux@microsoft.com>|Void Team <team@voideditor.com>|' resources/linux/rpm/code.spec.template
+  sed -i 's|Visual Studio Code Team <vscode-linux@microsoft.com>|Void Team <team@voideditor-test.com>|' resources/linux/rpm/code.spec.template
   sed -i 's|Visual Studio Code|Void|' resources/linux/rpm/code.spec.template
-  sed -i 's|https://code.visualstudio.com/docs/setup/linux|https://docs.void.dev|' resources/linux/rpm/code.spec.template
-  sed -i 's|https://code.visualstudio.com|https://void.dev|' resources/linux/rpm/code.spec.template
+  sed -i 's|https://code.visualstudio.com/docs/setup/linux|https://voideditor-test.com|' resources/linux/rpm/code.spec.template
+  sed -i 's|https://code.visualstudio.com|https://voideditor-test.com|' resources/linux/rpm/code.spec.template
 
   # snapcraft.yaml
   sed -i 's|Visual Studio Code|Void|'  resources/linux/rpm/code.spec.template
 elif [[ "${OS_NAME}" == "windows" ]]; then
   # code.iss
-  sed -i 's|https://code.visualstudio.com|https://void.dev|' build/win32/code.iss
+  sed -i 's|https://code.visualstudio.com|https://voideditor-test.com|' build/win32/code.iss
   sed -i 's|Microsoft Corporation|Void|' build/win32/code.iss
 fi
 

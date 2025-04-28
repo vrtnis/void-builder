@@ -10,8 +10,10 @@ set -ex
 SEARCH="\.data\.microsoft\.com"
 REPLACEMENT="s|//[^/]+\.data\.microsoft\.com|//0\.0\.0\.0|g"
 
+echo "----------- undo_telemetry -----------"
 # include common functions
 . ../utils.sh
+
 
 if is_gnu_sed; then
   replace_with_debug () {
