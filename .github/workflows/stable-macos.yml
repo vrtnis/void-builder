@@ -33,7 +33,7 @@ on:
 env:
   APP_NAME: Void
   # ASSETS_REPOSITORY is where all the downloads are.
-  # VSCodium has this be the current repo, voideditor-test/void-builder:
+  # VSCodium has this be the current repo, voideditor/void-builder:
   # ASSETS_REPOSITORY: ${{ github.repository }}
 
   ASSETS_REPOSITORY: ${{ github.repository_owner }}/binaries
