@@ -11,3 +11,5 @@ The purpose of this repo is to run [Github Actions](https://github.com/voidedito
 - VSCodium comes with `.patch` files, including relevant ones to auto-updating, which are being applied when we build Void.
 
 - For a list of all the places Void edited in this repo, search "Void" and "voideditor".
+
+- We deleted some unused workflows (insider-* and stable-spearhead).
