@@ -50,13 +50,13 @@ MS_TAG=$( jq -r '.version' "package.json" )
 MS_COMMIT=$VOID_BRANCH # Void - MS_COMMIT doesn't seem to do much
 VOID_VERSION=$( jq -r '.voidVersion' "product.json" ) # Void added this
 
-if [[ -n "${VOID_RELEASE}" ]]; then # Void added VOID_RELEASE as optional to bump release faster than 1 day
+if [[ -n "${VOID_RELEASE}" ]]; then # Void added VOID_RELEASE as optional to bump manually
   RELEASE_VERSION="${MS_TAG}${VOID_RELEASE}"
 else
-  date=1$( date +%j ) # windows (inno) wants the end number to be < 65535
-  RELEASE_VERSION="${MS_TAG}${date}"
-  # Void - RELEASE_VERSION is later used as version (1.0.3+RELEASE_VERSION), so it MUST be a number or it will throw a semver error in void
+  VOID_RELEASE=$( jq -r '.voidRelease' "product.json" )
+  RELEASE_VERSION="${MS_TAG}${VOID_RELEASE}"
 fi
+# Void - RELEASE_VERSION is later used as version (1.0.3+RELEASE_VERSION), so it MUST be a number or it will throw a semver error in void
 
 
 echo "RELEASE_VERSION=\"${RELEASE_VERSION}\""
